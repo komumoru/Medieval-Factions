@@ -13,6 +13,7 @@ import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.block.Action.RIGHT_CLICK_BLOCK
+import org.bukkit.inventory.EquipmentSlot.HAND
 
 class TerritoryRestrictionsListener(private val plugin: MedievalFactions) : Listener {
 
@@ -65,6 +66,9 @@ class TerritoryRestrictionsListener(private val plugin: MedievalFactions) : List
             return
         }
         if (event.action != RIGHT_CLICK_BLOCK) {
+            return
+        }
+        if (event.hand != HAND) {
             return
         }
         val clickedBlock = event.clickedBlock ?: return
