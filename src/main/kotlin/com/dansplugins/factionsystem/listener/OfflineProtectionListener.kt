@@ -3,6 +3,7 @@ package com.dansplugins.factionsystem.listener
 import com.dansplugins.factionsystem.MedievalFactions
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFactionId
+import org.bukkit.Chunk
 import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.event.EventHandler
@@ -15,7 +16,8 @@ class OfflineProtectionListener(private val plugin: MedievalFactions) : Listener
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityExplode(event: EntityExplodeEvent) {
-        handleExplosion(event.blockList(), event.location.world) {
+        val location = event.location
+        handleExplosion(event.blockList(), location?.world, location?.chunk) {
             event.blockList().clear()
             event.isCancelled = true
         }
@@ -23,13 +25,18 @@ class OfflineProtectionListener(private val plugin: MedievalFactions) : Listener
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockExplode(event: BlockExplodeEvent) {
-        handleExplosion(event.blockList(), event.block.world) {
+        handleExplosion(event.blockList(), event.block.world, event.block.chunk) {
             event.blockList().clear()
             event.isCancelled = true
         }
     }
 
-    private fun handleExplosion(blocks: MutableList<Block>, world: World?, cancel: () -> Unit) {
+    private fun handleExplosion(
+        blocks: MutableList<Block>,
+        world: World?,
+        originChunk: Chunk?,
+        cancel: () -> Unit
+    ) {
         val config = plugin.config
         if (!config.getBoolean("offlineBlastProtection.enabled")) {
             return
@@ -41,20 +48,28 @@ class OfflineProtectionListener(private val plugin: MedievalFactions) : Listener
         if (exemptWorlds.contains(world.name.lowercase())) {
             return
         }
-        if (blocks.isEmpty()) {
-            return
-        }
         val claimService = plugin.services.claimService
         val allowWhenAnyMemberOnline = config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)
+        val onlyBlockDamage = config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)
         val factionsToProtect = mutableMapOf<MfFactionId, Boolean>()
-        val protectedBlocks = blocks.filter { block ->
-            val claim = claimService.getClaim(block.chunk) ?: return@filter false
-            shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
+        val protectedBlocks = if (blocks.isEmpty()) {
+            emptyList()
+        } else {
+            blocks.filter { block ->
+                val claim = claimService.getClaim(block.chunk) ?: return@filter false
+                shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
+            }
         }
-        if (protectedBlocks.isEmpty()) {
+        val originProtected = if (!onlyBlockDamage && originChunk != null) {
+            val claim = claimService.getClaim(originChunk)
+            claim != null && shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
+        } else {
+            false
+        }
+        if (protectedBlocks.isEmpty() && !originProtected) {
             return
         }
-        if (config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)) {
+        if (onlyBlockDamage) {
             blocks.removeAll(protectedBlocks.toSet())
         } else {
             cancel()
