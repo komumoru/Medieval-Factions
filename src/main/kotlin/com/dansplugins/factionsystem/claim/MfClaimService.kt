@@ -46,6 +46,23 @@ class MfClaimService(private val plugin: MedievalFactions, private val repositor
     @JvmName("getClaimsByFactionId")
     fun getClaims(factionId: MfFactionId): List<MfClaimedChunk> = claims.filter { it.factionId == factionId }
 
+    @JvmName("isPlayerMemberOrAllyOfClaimedChunk")
+    fun isPlayerMemberOrAlly(playerId: MfPlayerId, claim: MfClaimedChunk, treatAlliesAsMembers: Boolean): Boolean {
+        val factionService = plugin.services.factionService
+        val playerFaction = factionService.getFaction(playerId) ?: return false
+        if (playerFaction.id == claim.factionId) {
+            return true
+        }
+        if (!treatAlliesAsMembers) {
+            return false
+        }
+        val relationshipService = plugin.services.factionRelationshipService
+        if (relationshipService.getAllies(claim.factionId).contains(playerFaction.id)) {
+            return true
+        }
+        return relationshipService.getAllies(playerFaction.id).contains(claim.factionId)
+    }
+
     @JvmName("isInteractionAllowedForPlayerInChunk")
     fun isInteractionAllowed(playerId: MfPlayerId, claim: MfClaimedChunk): Boolean {
         val factionService = plugin.services.factionService
