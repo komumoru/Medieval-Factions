@@ -67,6 +67,14 @@ class MfFactionService(private val plugin: MedievalFactions, private val reposit
     @JvmName("getFactionByFactionId")
     fun getFaction(factionId: MfFactionId): MfFaction? = factionsById[factionId]
 
+    @JvmName("hasOnlineMemberByFactionId")
+    fun hasOnlineMember(factionId: MfFactionId): Boolean {
+        val faction = getFaction(factionId) ?: return false
+        return faction.members.any { member ->
+            member.playerId.toBukkitPlayer().player?.isOnline == true
+        }
+    }
+
     fun save(faction: MfFaction): Result4k<MfFaction, ServiceFailure> = resultFrom {
         val previousState = getFaction(faction.id)
         var factionToSave = faction

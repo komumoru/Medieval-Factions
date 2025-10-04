@@ -313,6 +313,9 @@ permissions:
   mf.bypass:
     description: Allows bypassing faction protections
     default: op
+  medievalfactions.bypassrestrictions:
+    description: Allows bypassing territory block restrictions
+    default: op
   mf.chat:
     description: Allows using faction chat
     default: true

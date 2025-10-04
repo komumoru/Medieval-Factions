@@ -64,6 +64,8 @@ import com.dansplugins.factionsystem.listener.PlayerMoveListener
 import com.dansplugins.factionsystem.listener.PlayerQuitListener
 import com.dansplugins.factionsystem.listener.PlayerTeleportListener
 import com.dansplugins.factionsystem.listener.PotionSplashListener
+import com.dansplugins.factionsystem.listener.OfflineProtectionListener
+import com.dansplugins.factionsystem.listener.TerritoryRestrictionsListener
 import com.dansplugins.factionsystem.locks.JooqMfLockRepository
 import com.dansplugins.factionsystem.locks.MfLockRepository
 import com.dansplugins.factionsystem.locks.MfLockService
@@ -311,6 +313,17 @@ class MedievalFactions : JavaPlugin() {
             }
         }
 
+        if (config.getBoolean("offlineBlastProtection.enabled")) {
+            logger.info("Offline blast protection: enabled")
+        } else {
+            logger.info("Offline blast protection: disabled")
+        }
+        if (config.getBoolean("territoryRestrictions.enabled")) {
+            logger.info("Territory block restrictions: enabled")
+        } else {
+            logger.info("Territory block restrictions: disabled")
+        }
+
         registerListeners(
             AreaEffectCloudApplyListener(this),
             AsyncPlayerChatListener(this),
@@ -321,10 +334,12 @@ class MedievalFactions : JavaPlugin() {
             BlockPistonExtendListener(this),
             BlockPistonRetractListener(this),
             BlockPlaceListener(this),
+            TerritoryRestrictionsListener(this),
             CreatureSpawnListener(this),
             EntityDamageByEntityListener(this),
             EntityDamageListener(this),
             EntityExplodeListener(this),
+            OfflineProtectionListener(this),
             InventoryMoveItemListener(this),
             LingeringPotionSplashListener(this),
             PlayerBucketListener(this),
