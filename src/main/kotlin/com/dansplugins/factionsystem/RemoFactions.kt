@@ -145,7 +145,27 @@ class RemoFactions : JavaPlugin() {
 
         language = Language(this, config.getString("language") ?: "en-US")
 
-        Class.forName("org.h2.Driver")
+        val h2DriverClassNames = listOf(
+            "org.h2.Driver",
+            "com.dansplugins.factionsystem.shadow.org.h2.Driver"
+        )
+        var h2DriverLoaded = false
+        var lastH2DriverException: ClassNotFoundException? = null
+        for (h2DriverClassName in h2DriverClassNames) {
+            try {
+                Class.forName(h2DriverClassName)
+                h2DriverLoaded = true
+                break
+            } catch (exception: ClassNotFoundException) {
+                lastH2DriverException = exception
+            }
+        }
+        if (!h2DriverLoaded) {
+            logger.severe(
+                "Unable to load the H2 database driver. Tried: ${h2DriverClassNames.joinToString()}"
+            )
+            throw IllegalStateException("Unable to load the H2 database driver.", lastH2DriverException)
+        }
         val hikariConfig = HikariConfig()
         hikariConfig.jdbcUrl = config.getString("database.url")
         val databaseUsername = config.getString("database.username")
