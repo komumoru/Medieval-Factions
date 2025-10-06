@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.accessors.list
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.interaction.MfInteractionStatus.CHECKING_ACCESS
 import com.dansplugins.factionsystem.pagination.PaginatedView
@@ -25,7 +25,7 @@ import java.util.logging.Level.SEVERE
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfAccessorsListCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfAccessorsListCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.checkaccess") && !sender.hasPermission("mf.accessors.list")) {

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.duel
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.failure.OptimisticLockingFailureException
 import com.dansplugins.factionsystem.failure.ServiceFailure
 import com.dansplugins.factionsystem.failure.ServiceFailureType
@@ -11,7 +11,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
 class MfDuelService(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val duelRepo: MfDuelRepository,
     private val duelInviteRepo: MfDuelInviteRepository
 ) {

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.locks
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.failure.OptimisticLockingFailureException
@@ -25,7 +25,7 @@ import org.bukkit.block.data.Bisected.Half.BOTTOM
 import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level.SEVERE
 
-class MfLockService(private val plugin: MedievalFactions, private val repository: MfLockRepository) {
+class MfLockService(private val plugin: RemoFactions, private val repository: MfLockRepository) {
 
     private val lockedBlocks: MutableMap<MfBlockPosition, MfLockedBlock> = ConcurrentHashMap()
 

@@ -1,12 +1,12 @@
 package com.dansplugins.factionsystem.potion
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.OfflinePlayer
 import org.bukkit.entity.AreaEffectCloud
 import org.bukkit.entity.Player
 import java.util.*
 
-class MfPotionService(private val plugin: MedievalFactions) {
+class MfPotionService(private val plugin: RemoFactions) {
 
     private val lingeringEffectThrowers = mutableMapOf<Int, UUID>()
 

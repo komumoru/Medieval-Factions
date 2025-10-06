@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.help
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.pagination.PaginatedView
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.Command
@@ -10,7 +10,7 @@ import org.bukkit.command.TabCompleter
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionHelpCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionHelpCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.help")) {
             sender.sendMessage("${BukkitChatColor.RED}${plugin.language["CommandFactionHelpNoPermission"]}")

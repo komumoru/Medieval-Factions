@@ -1,13 +1,13 @@
 package com.dansplugins.factionsystem.command.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.ChatColor.RED
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfFactionRoleCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRoleCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val factionRoleViewCommand = MfFactionRoleViewCommand(plugin)
     private val factionRoleSetPermissionCommand = MfFactionRoleSetPermissionCommand(plugin)

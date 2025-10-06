@@ -1,5 +1,5 @@
 package com.dansplugins.factionsystem.listener
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -11,7 +11,7 @@ import org.bukkit.event.player.PlayerBucketEvent
 import org.bukkit.event.player.PlayerBucketFillEvent
 import java.util.logging.Level
 
-class PlayerBucketListener(private val plugin: MedievalFactions) : Listener {
+class PlayerBucketListener(private val plugin: RemoFactions) : Listener {
     fun handleProtection(event: PlayerBucketEvent) {
         val gateService = plugin.services.gateService
         val blockPosition = MfBlockPosition.fromBukkitBlock(event.block)

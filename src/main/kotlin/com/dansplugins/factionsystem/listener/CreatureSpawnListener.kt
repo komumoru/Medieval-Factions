@@ -1,11 +1,11 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.CreatureSpawnEvent
 
-class CreatureSpawnListener(private val plugin: MedievalFactions) : Listener {
+class CreatureSpawnListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onCreatureSpawn(event: CreatureSpawnEvent) {

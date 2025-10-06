@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.duel.challenge
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.duel.MfDuelInvite
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -21,7 +21,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 
-class MfDuelChallengeCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfDuelChallengeCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.duel")) {
             sender.sendMessage("$RED${plugin.language["CommandDuelChallengeNoPermission"]}")

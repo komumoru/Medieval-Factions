@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.claim
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfChunkPosition
 import com.dansplugins.factionsystem.event.faction.FactionClaimEvent
 import com.dansplugins.factionsystem.event.faction.FactionUnclaimEvent
@@ -21,7 +21,7 @@ import org.bukkit.World
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
-class MfClaimService(private val plugin: MedievalFactions, private val repository: MfClaimedChunkRepository) {
+class MfClaimService(private val plugin: RemoFactions, private val repository: MfClaimedChunkRepository) {
 
     private data class ClaimKey(val worldId: UUID, val x: Int, val z: Int) {
         constructor(claimedChunk: MfClaimedChunk) : this(claimedChunk.worldId, claimedChunk.x, claimedChunk.z)

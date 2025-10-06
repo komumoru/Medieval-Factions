@@ -1,5 +1,5 @@
 package com.dansplugins.factionsystem.command.faction.apply.tasks
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import net.md_5.bungee.api.ChatColor
@@ -7,7 +7,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
 class CancelApplicationTask(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val sender: Player,
     private val targetFactionName: String
 ) : Runnable {

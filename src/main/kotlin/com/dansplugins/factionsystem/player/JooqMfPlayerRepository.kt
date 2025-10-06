@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.player
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel
 import com.dansplugins.factionsystem.failure.OptimisticLockingFailureException
 import com.dansplugins.factionsystem.jooq.Tables.MF_PLAYER
@@ -10,7 +10,7 @@ import org.jooq.impl.DSL.greatest
 import org.jooq.impl.DSL.least
 import org.jooq.impl.DSL.value
 
-class JooqMfPlayerRepository(private val plugin: MedievalFactions, private val dsl: DSLContext) : MfPlayerRepository {
+class JooqMfPlayerRepository(private val plugin: RemoFactions, private val dsl: DSLContext) : MfPlayerRepository {
     override fun getPlayer(id: MfPlayerId) =
         dsl.selectFrom(MF_PLAYER)
             .where(MF_PLAYER.ID.eq(id.value))

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.denyapp.tasks
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import net.md_5.bungee.api.ChatColor
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level
 
 class DenyApplicationTask(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val sender: Player,
     private val targetPlayerName: String
 ) : Runnable {

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.power.set
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor.GREEN
@@ -13,7 +13,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.logging.Level
 
-class MfPowerSetCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfPowerSetCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val decimalFormat = DecimalFormat("0.##", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

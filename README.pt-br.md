@@ -1,7 +1,7 @@
-# Medieval Factions
+# RemoFactions
 
 ## Descrição
-Medieval Factions  é um sistema de mecânicas que permite a simulação de nações soberanas no Minecraft. Os jogadores podem criar nações, reinvindicar territórios, se envolver em guerras ou políticas, definir leis ou criar torneios de duelos, e geralmente são capazes de tentar recriar algum tipo de sociedade.
+RemoFactions  é um sistema de mecânicas que permite a simulação de nações soberanas no Minecraft. Os jogadores podem criar nações, reinvindicar territórios, se envolver em guerras ou políticas, definir leis ou criar torneios de duelos, e geralmente são capazes de tentar recriar algum tipo de sociedade.
 
 ## Software de servidor
 Este plugin esta sendo desenvolvido utilizando a API Do Spigot. Os usuários talvez tenham problemas utilizando este plugin se utilizarem outros softwares disponiveis, como o Paper.
@@ -21,32 +21,32 @@ Dynmap esta integrado a este plugin. Para poder visualizar o terreno reivindicad
 2) [Currencies](https://github.com/dmccoystephenson/Currencies)
 
 ## Usos
-- [Guia de Usuário](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Guide)
-- [Lista de Comandos](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Commands)
-- [FAQ](https://github.com/dmccoystephenson/Medieval-Factions/wiki/FAQ)
-- [Opções de Configuração](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Config-Options)
-- [Faction Flags](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Faction-Flags)
-- [Lista de Placeholders](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Placeholders)
+- [Guia de Usuário](https://github.com/dmccoystephenson/RemoFactions/wiki/Guide)
+- [Lista de Comandos](https://github.com/dmccoystephenson/RemoFactions/wiki/Commands)
+- [FAQ](https://github.com/dmccoystephenson/RemoFactions/wiki/FAQ)
+- [Opções de Configuração](https://github.com/dmccoystephenson/RemoFactions/wiki/Config-Options)
+- [Faction Flags](https://github.com/dmccoystephenson/RemoFactions/wiki/Faction-Flags)
+- [Lista de Placeholders](https://github.com/dmccoystephenson/RemoFactions/wiki/Placeholders)
 
 ## Suporte
 Você pode encontrar suporte no nosso discord [aqui](https://discord.gg/xXtuAQ2).
 
 ### Descobriu um bug?
-Por favor, preencha um relatório de bug [aqui](https://github.com/dmccoystephenson/Medieval-Factions/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
+Por favor, preencha um relatório de bug [aqui](https://github.com/dmccoystephenson/RemoFactions/issues?q=is%3Aissue+is%3Aopen+label%3Abug).
 
 ## Roadmap
-- [Bugs Conhecidos](https://github.com/dmccoystephenson/Medieval-Factions/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
-- [Futuras Novidades](https://github.com/dmccoystephenson/Medieval-Factions/issues?q=is%3Aopen+is%3Aissue+label%3AEpic)
-- [Futuras Melhorias](https://github.com/dmccoystephenson/Medieval-Factions/issues?q=is%3Aopen+is%3Aissue+label%3Aimprovement)
+- [Bugs Conhecidos](https://github.com/dmccoystephenson/RemoFactions/issues?q=is%3Aopen+is%3Aissue+label%3Abug)
+- [Futuras Novidades](https://github.com/dmccoystephenson/RemoFactions/issues?q=is%3Aopen+is%3Aissue+label%3AEpic)
+- [Futuras Melhorias](https://github.com/dmccoystephenson/RemoFactions/issues?q=is%3Aopen+is%3Aissue+label%3Aimprovement)
 
 ## Contribuindo
-- [Contributing.md](https://github.com/dmccoystephenson/Medieval-Factions/blob/master/CONTRIBUTING.md)
-- [Notas dos Desenvolvedores](https://github.com/dmccoystephenson/Medieval-Factions/wiki/Developer-Notes)
+- [Contributing.md](https://github.com/dmccoystephenson/RemoFactions/blob/master/CONTRIBUTING.md)
+- [Notas dos Desenvolvedores](https://github.com/dmccoystephenson/RemoFactions/wiki/Developer-Notes)
 
 ### Pensando em criar um add-on para nosso plugin?
-Eu recomendo usar [FactionsBridge](https://www.spigotmc.org/resources/factionsbridge.89716/) feito por [Retrix_Solutions](https://www.spigotmc.org/resources/authors/retrix_solutions.491191/). Isso tornaria seu add-on utilizável em várias implementações do Medieval Factions.
+Eu recomendo usar [FactionsBridge](https://www.spigotmc.org/resources/factionsbridge.89716/) feito por [Retrix_Solutions](https://www.spigotmc.org/resources/authors/retrix_solutions.491191/). Isso tornaria seu add-on utilizável em várias implementações do RemoFactions.
 
-Outra alternativa seria, você utilizar nossa External API, a documentação pode ser encontrada [aqui](https://github.com/dmccoystephenson/Medieval-Factions/wiki/External-API-Documentation).
+Outra alternativa seria, você utilizar nossa External API, a documentação pode ser encontrada [aqui](https://github.com/dmccoystephenson/RemoFactions/wiki/External-API-Documentation).
 
 ## Autores e Reconhecimentos
 ### Desenvolvedores
@@ -76,7 +76,7 @@ Outra alternativa seria, você utilizar nossa External API, a documentação pod
 
 Eu criei este plugin porque eu queria usar o plugin original [Factions](https://www.spigotmc.org/resources/factions.1900/) para um servidor meu, mas que não foi atualizado para a versão do Minecraft que eu estava usando. Eu decidi pegar de inspiração os conceitos de factions - grupos de jogadores que podem conquistar uma terra e criar minha própria atualização do plugin Factions.
 
-A primeira versão divulgada, [v1.7](https://github.com/dmccoystephenson/Medieval-Factions/releases/tag/v1.7), foi lançada no SpigotMC em junho de 2020 e é muito diferente da versão atual do plugin.
+A primeira versão divulgada, [v1.7](https://github.com/dmccoystephenson/RemoFactions/releases/tag/v1.7), foi lançada no SpigotMC em junho de 2020 e é muito diferente da versão atual do plugin.
 
 Eu sou extremamente grato aqueles que deram o seu tempo parar melhorar este projeto, de um jeitou ou de outro. O plugin não estaria aqui hoje sem as contribuições de outros.
 
@@ -87,4 +87,4 @@ GPL3
 Este projeto esta atualmente em desenvolvimento.
 
 ### bStats
-Você pode ver o Bstats deste plugin [aqui](https://bstats.org/plugin/bukkit/Medieval%20Factions/8929).
+Você pode ver o Bstats deste plugin [aqui](https://bstats.org/plugin/bukkit/RemoFactions/8929).

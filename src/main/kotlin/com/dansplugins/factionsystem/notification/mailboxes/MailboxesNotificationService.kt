@@ -1,13 +1,13 @@
 package com.dansplugins.factionsystem.notification.mailboxes
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.notification.MfNotification
 import com.dansplugins.factionsystem.notification.MfNotificationService
 import com.dansplugins.factionsystem.player.MfPlayerId
 import dansplugins.mailboxes.Mailboxes
 import java.util.*
 
-class MailboxesNotificationService(private val plugin: MedievalFactions) : MfNotificationService {
+class MailboxesNotificationService(private val plugin: RemoFactions) : MfNotificationService {
     override fun sendNotification(playerId: MfPlayerId, notification: MfNotification) {
         val mailboxesPlugin: Mailboxes = plugin.server.pluginManager.getPlugin("Mailboxes") as? Mailboxes ?: return
         val mailboxesApi = mailboxesPlugin.api

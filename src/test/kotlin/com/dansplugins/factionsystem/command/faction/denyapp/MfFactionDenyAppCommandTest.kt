@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.denyapp
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.TestUtils
 import com.dansplugins.factionsystem.command.faction.denyapp.tasks.DenyApplicationTask
 import com.dansplugins.factionsystem.faction.MfFactionService
@@ -26,7 +26,7 @@ class MfFactionDenyAppCommandTest {
     private val testUtils = TestUtils()
 
     private lateinit var fixture: TestUtils.CommandTestFixture
-    private lateinit var plugin: MedievalFactions
+    private lateinit var plugin: RemoFactions
     private lateinit var factionService: MfFactionService
     private lateinit var playerService: MfPlayerService
     private lateinit var language: Language
@@ -35,7 +35,7 @@ class MfFactionDenyAppCommandTest {
     @BeforeEach
     fun setUp() {
         fixture = testUtils.createCommandTestFixture()
-        plugin = mock(MedievalFactions::class.java)
+        plugin = mock(RemoFactions::class.java)
         mockServices()
         mockLanguageSystem()
         mockScheduler()

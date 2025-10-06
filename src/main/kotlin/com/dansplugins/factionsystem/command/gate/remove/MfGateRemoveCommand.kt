@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.gate.remove
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -15,7 +15,7 @@ import java.util.logging.Level
 import java.util.logging.Level.INFO
 import java.util.logging.Level.SEVERE
 
-class MfGateRemoveCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfGateRemoveCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.gate")) {
             sender.sendMessage("$RED${plugin.language["CommandGateRemoveNoPermission"]}")

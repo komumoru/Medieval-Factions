@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.denyapp
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.denyapp.tasks.DenyApplicationTask
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.Command
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
-class MfFactionDenyAppCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionDenyAppCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
         if (!sender.hasPermission("mf.denyapp")) {
             sender.sendMessage("${ChatColor.RED}${plugin.language["CommandFactionDenyAppNoPermission"]}")

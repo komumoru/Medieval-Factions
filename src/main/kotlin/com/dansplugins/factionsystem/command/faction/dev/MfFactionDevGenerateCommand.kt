@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.dev
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
@@ -20,7 +20,7 @@ import java.util.*
 import java.util.logging.Level.SEVERE
 import kotlin.random.Random
 
-class MfFactionDevGenerateCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionDevGenerateCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         val players = listOf(
             UUID.fromString("0a9fa342-3139-49d7-8acb-fcf4d9c1f0ef"),

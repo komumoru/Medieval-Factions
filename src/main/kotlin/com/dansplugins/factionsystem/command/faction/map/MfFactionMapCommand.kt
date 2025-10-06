@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.map
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.map.MfFactionMapCommand.MapType.DIPLOMATIC
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -22,7 +22,7 @@ import java.util.logging.Level
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionMapCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionMapCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     enum class MapType(val supportsFactionless: Boolean) {
         NORMAL(true),

@@ -1,19 +1,8 @@
-name: MedievalFactions
+name: RemoFactions
 authors:
-- DanTheTechMan
-- Pasarus
-- Caibinus
-- Callum
-- Richardhyy
-- Mitras2
-- Kaonami
-- GoodLucky777
-- Elafir
-- Deej
-- VoChiDanh
-- alyphen
+- remotivated
 version: @version@
-main: com.dansplugins.factionsystem.MedievalFactions
+main: com.dansplugins.factionsystem.RemoFactions
 api-version: 1.17
 softdepend:
 - dynmap
@@ -71,7 +60,7 @@ commands:
       /f relationship add [faction1] [faction2] (relationship type) - Adds a relationship between two factions
       /f relationship remove [faction1] [faction2] [relationship type] - Removes a relationship between two factions
       /f relationship view [faction1] [faction2] - Views the relationship between two factions
-    aliases: [medievalfactions, mf, f, fraktion]
+    aliases: [remofactions, mf, f, fraktion]
     usage: /<command> [help|ally|breakalliance|declarewar|makepeace|create|invite|join|law|role|list|claim|unclaim|checkclaim|unclaimall|power|who|invoke|leave|vassalize|swearfealty|declareindependence|grantindependence|kick|map|sethome|home|flag|bypass|chat|set|bonuspower|relationship]
   lock:
     description: Enables or disables lock mode. To cancel lock mode, use /lock cancel.

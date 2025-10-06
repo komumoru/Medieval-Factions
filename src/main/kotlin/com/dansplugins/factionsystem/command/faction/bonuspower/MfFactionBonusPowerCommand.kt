@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.bonuspower
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
 import dev.forkhandles.result4k.onFailure
@@ -14,7 +14,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import java.util.logging.Level.SEVERE
 
-class MfFactionBonusPowerCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionBonusPowerCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val decimalFormat = DecimalFormat("0.##", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

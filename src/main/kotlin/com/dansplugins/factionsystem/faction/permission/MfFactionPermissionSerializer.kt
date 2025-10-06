@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction.permission
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.google.gson.JsonDeserializationContext
 import com.google.gson.JsonDeserializer
 import com.google.gson.JsonElement
@@ -10,7 +10,7 @@ import com.google.gson.JsonSerializer
 import java.lang.reflect.Type
 
 class MfFactionPermissionSerializer(
-    private val plugin: MedievalFactions
+    private val plugin: RemoFactions
 ) : JsonSerializer<MfFactionPermission?>, JsonDeserializer<MfFactionPermission?> {
     override fun serialize(
         src: MfFactionPermission?,

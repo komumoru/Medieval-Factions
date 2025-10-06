@@ -1,9 +1,9 @@
 package com.dansplugins.factionsystem.faction.flag
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 
 class MfFlagValues(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     val valuesByName: Map<String, Any?> = mutableMapOf()
 ) {
     val values: Map<MfFlag<out Any>, Any?>

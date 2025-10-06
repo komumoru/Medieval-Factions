@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.grantindependence
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.player.MfPlayer
 import com.dansplugins.factionsystem.relationship.MfFactionRelationshipType.LIEGE
@@ -15,7 +15,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfFactionGrantIndependenceCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionGrantIndependenceCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.grantindependence")) {
             sender.sendMessage("$RED${plugin.language["CommandFactionGrantIndependenceNoPermission"]}")

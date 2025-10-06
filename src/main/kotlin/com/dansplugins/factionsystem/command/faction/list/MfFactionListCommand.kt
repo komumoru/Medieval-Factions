@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.list
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.pagination.PaginatedView
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.command.Command
@@ -13,7 +13,7 @@ import kotlin.math.floor
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionListCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionListCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val decimalFormat = DecimalFormat("0", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

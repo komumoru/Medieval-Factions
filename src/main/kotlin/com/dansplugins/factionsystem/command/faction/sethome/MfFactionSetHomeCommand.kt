@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.sethome
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfPosition
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -13,7 +13,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfFactionSetHomeCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionSetHomeCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.sethome")) {
             sender.sendMessage("$RED${plugin.language["CommandFactionSetHomeNoPermission"]}")

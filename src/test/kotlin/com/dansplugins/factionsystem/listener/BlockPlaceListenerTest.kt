@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.TestUtils
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.claim.MfClaimService
@@ -23,7 +23,7 @@ class BlockPlaceListenerTest {
     private val testUtils = TestUtils()
 
     private lateinit var fixture: BlockPlaceListenerTestFixture
-    private lateinit var medievalFactions: MedievalFactions
+    private lateinit var medievalFactions: RemoFactions
     private lateinit var gateService: MfGateService
     private lateinit var claimService: MfClaimService
     private lateinit var uut: BlockPlaceListener
@@ -31,7 +31,7 @@ class BlockPlaceListenerTest {
     @BeforeEach
     fun setUp() {
         fixture = createBasicFixture()
-        medievalFactions = mock(MedievalFactions::class.java)
+        medievalFactions = mock(RemoFactions::class.java)
         mockServices()
         mockLanguageSystem()
         uut = BlockPlaceListener(medievalFactions)

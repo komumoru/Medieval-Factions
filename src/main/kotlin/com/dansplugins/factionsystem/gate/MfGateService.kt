@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.gate
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.faction.MfFactionId
 import com.dansplugins.factionsystem.failure.OptimisticLockingFailureException
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level.SEVERE
 
 class MfGateService(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val gateRepo: MfGateRepository,
     private val gateCreationContextRepo: MfGateCreationContextRepository
 ) {

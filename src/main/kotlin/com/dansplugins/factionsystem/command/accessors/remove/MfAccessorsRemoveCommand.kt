@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.accessors.remove
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.interaction.MfInteractionStatus.REMOVING_ACCESSOR
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -25,7 +25,7 @@ import org.bukkit.entity.Player
 import java.util.*
 import java.util.logging.Level
 
-class MfAccessorsRemoveCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfAccessorsRemoveCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionService
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -17,7 +17,7 @@ import java.text.DecimalFormatSymbols
 import java.util.logging.Level.SEVERE
 import kotlin.math.abs
 
-class PlayerDeathListener(private val plugin: MedievalFactions) : Listener {
+class PlayerDeathListener(private val plugin: RemoFactions) : Listener {
 
     private val decimalFormat = DecimalFormat("0.##", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

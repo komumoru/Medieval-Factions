@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.accessors
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.accessors.add.MfAccessorsAddCommand
 import com.dansplugins.factionsystem.command.accessors.list.MfAccessorsListCommand
 import com.dansplugins.factionsystem.command.accessors.remove.MfAccessorsRemoveCommand
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfAccessorsCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfAccessorsCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val accessorsAddCommand = MfAccessorsAddCommand(plugin)
     private val accessorsRemoveCommand = MfAccessorsRemoveCommand(plugin)

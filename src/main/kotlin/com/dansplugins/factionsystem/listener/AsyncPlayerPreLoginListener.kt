@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import com.dansplugins.factionsystem.player.MfPlayerId
 import dev.forkhandles.result4k.onFailure
@@ -9,7 +9,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerPreLoginEvent
 import java.util.logging.Level.SEVERE
 
-class AsyncPlayerPreLoginListener(private val plugin: MedievalFactions) : Listener {
+class AsyncPlayerPreLoginListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onAsyncPlayerPreLogin(event: AsyncPlayerPreLoginEvent) {

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.set
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.set.description.MfFactionSetDescriptionCommand
 import com.dansplugins.factionsystem.command.faction.set.name.MfFactionSetNameCommand
 import com.dansplugins.factionsystem.command.faction.set.prefix.MfFactionSetPrefixCommand
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfFactionSetCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionSetCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val factionSetNameCommand = MfFactionSetNameCommand(plugin)
     private val factionSetDescriptionCommand = MfFactionSetDescriptionCommand(plugin)
     private val factionSetPrefixCommand = MfFactionSetPrefixCommand(plugin)

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.area.MfCuboidArea
 import com.dansplugins.factionsystem.gate.MfGate
@@ -38,7 +38,7 @@ import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot.HAND
 import java.util.logging.Level.SEVERE
 
-class PlayerInteractListener(private val plugin: MedievalFactions) : Listener {
+class PlayerInteractListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {

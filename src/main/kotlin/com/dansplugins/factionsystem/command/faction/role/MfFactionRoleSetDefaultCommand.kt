@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.role.MfFactionRoleId
 import com.dansplugins.factionsystem.player.MfPlayer
 import com.dansplugins.factionsystem.player.MfPlayerId
@@ -14,7 +14,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfFactionRoleSetDefaultCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRoleSetDefaultCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.role.setdefault")) {

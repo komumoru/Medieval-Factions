@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.set.description
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor.GREEN
@@ -16,7 +16,7 @@ import org.bukkit.conversations.StringPrompt
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class MfFactionSetDescriptionCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionSetDescriptionCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

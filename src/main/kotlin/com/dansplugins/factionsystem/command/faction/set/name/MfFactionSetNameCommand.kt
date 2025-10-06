@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.set.name
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 import preponderous.ponder.command.unquote
 import java.util.logging.Level
 
-class MfFactionSetNameCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionSetNameCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

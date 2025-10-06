@@ -1,12 +1,12 @@
 package com.dansplugins.factionsystem.command.faction.claim
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.command.Command
 import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfFactionClaimCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionClaimCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val factionClaimAutoCommand = MfFactionClaimAutoCommand(plugin)
     private val factionClaimFillCommand = MfFactionClaimFillCommand(plugin)
     private val factionClaimCheckCommand = MfFactionClaimCheckCommand(plugin)

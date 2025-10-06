@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.duel
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.duel.accept.MfDuelAcceptCommand
 import com.dansplugins.factionsystem.command.duel.cancel.MfDuelCancelCommand
 import com.dansplugins.factionsystem.command.duel.challenge.MfDuelChallengeCommand
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfDuelCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfDuelCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val duelChallengeCommand = MfDuelChallengeCommand(plugin)
     private val duelAcceptCommand = MfDuelAcceptCommand(plugin)
     private val duelCancelCommand = MfDuelCancelCommand(plugin)

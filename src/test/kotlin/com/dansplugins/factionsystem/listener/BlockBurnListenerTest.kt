@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.gate.MfGate
 import com.dansplugins.factionsystem.gate.MfGateService
@@ -20,14 +20,14 @@ import org.mockito.Mockito.`when`
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class BlockBurnListenerTest {
     private lateinit var fixture: BlockBurnListenerTestFixture
-    private lateinit var plugin: MedievalFactions
+    private lateinit var plugin: RemoFactions
     private lateinit var gateService: MfGateService
     private lateinit var uut: BlockBurnListener
 
     @BeforeEach
     fun setUp() {
         fixture = createFixture()
-        plugin = mock(MedievalFactions::class.java)
+        plugin = mock(RemoFactions::class.java)
         mockServices()
         uut = BlockBurnListener(plugin)
     }

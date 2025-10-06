@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.relationship
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.event.relationship.RelationshipCreateEvent
 import com.dansplugins.factionsystem.event.relationship.RelationshipDeleteEvent
 import com.dansplugins.factionsystem.exception.EventCancelledException
@@ -17,7 +17,7 @@ import dev.forkhandles.result4k.mapFailure
 import dev.forkhandles.result4k.resultFrom
 import java.util.concurrent.ConcurrentHashMap
 
-class MfFactionRelationshipService(private val plugin: MedievalFactions, private val repository: MfFactionRelationshipRepository) {
+class MfFactionRelationshipService(private val plugin: RemoFactions, private val repository: MfFactionRelationshipRepository) {
 
     private val relationshipsById: MutableMap<MfFactionRelationshipId, MfFactionRelationship> = ConcurrentHashMap()
     private val relationships: List<MfFactionRelationship>

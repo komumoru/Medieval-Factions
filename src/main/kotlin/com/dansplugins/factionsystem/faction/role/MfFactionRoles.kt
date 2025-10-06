@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.ALLIES
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.FACTION
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.VASSALS
@@ -16,7 +16,7 @@ data class MfFactionRoles(
         get() = getRole(defaultRoleId)!!
 
     companion object {
-        fun defaults(plugin: MedievalFactions, factionId: MfFactionId): MfFactionRoles {
+        fun defaults(plugin: RemoFactions, factionId: MfFactionId): MfFactionRoles {
             val member = MfFactionRole(plugin, name = "Member")
             val officer = MfFactionRole(
                 plugin,

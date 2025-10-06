@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.addmember.MfFactionAddMemberCommand
 import com.dansplugins.factionsystem.command.faction.ally.MfFactionAllyCommand
 import com.dansplugins.factionsystem.command.faction.apply.MfFactionApplyCommand
@@ -51,7 +51,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfFactionCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val factionHelpCommand = MfFactionHelpCommand(plugin)
     private val factionCreateCommand = MfFactionCreateCommand(plugin)
@@ -227,7 +227,7 @@ class MfFactionCommand(private val plugin: MedievalFactions) : CommandExecutor, 
             in approveAppAliases -> factionApproveAppCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in denyAppAliases -> factionDenyAppCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             else -> {
-                sender.sendMessage("$AQUA${plugin.language["MedievalFactionsTitle", plugin.description.version]}")
+                sender.sendMessage("$AQUA${plugin.language["RemoFactionsTitle", plugin.description.version]}")
                 sender.sendMessage("$GRAY${plugin.language["DeveloperList", plugin.description.authors.joinToString()]}")
                 sender.sendMessage("$GRAY${plugin.language["WikiLink"]}")
                 sender.sendMessage("$GRAY${plugin.language["CurrentLanguage", plugin.config.getString("language") ?: "en_US"]}")

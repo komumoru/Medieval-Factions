@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.claim
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfChunkPosition
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFaction
@@ -20,7 +20,7 @@ import java.util.*
 import java.util.logging.Level.SEVERE
 import kotlin.math.floor
 
-class MfFactionClaimFillCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionClaimFillCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val decimalFormat = DecimalFormat("0", DecimalFormatSymbols.getInstance(plugin.language.locale))
     private val claimFillMaxChunks = plugin.config.getInt("factions.claimFillMaxChunks", -1)

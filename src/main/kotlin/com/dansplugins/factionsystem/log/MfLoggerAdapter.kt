@@ -19,7 +19,7 @@ class MfLoggerAdapter(name: String) : MarkerIgnoringBase(), LocationAwareLogger 
     }
 
     private val logger: Logger
-        get() = Bukkit.getPluginManager().getPlugin("MedievalFactions")?.logger
+        get() = Bukkit.getPluginManager().getPlugin("RemoFactions")?.logger
             ?: Bukkit.getLogger()
 
     /**

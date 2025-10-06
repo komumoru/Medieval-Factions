@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.role.MfFactionRole
 import com.dansplugins.factionsystem.faction.role.MfFactionRoleId
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -20,7 +20,7 @@ import org.bukkit.entity.Player
 import preponderous.ponder.command.unquote
 import java.util.logging.Level
 
-class MfFactionRoleRenameCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRoleRenameCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)
         .withFirstPrompt(NamePrompt())

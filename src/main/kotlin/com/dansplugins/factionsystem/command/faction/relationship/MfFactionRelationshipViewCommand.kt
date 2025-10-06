@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.relationship
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
 import com.dansplugins.factionsystem.relationship.MfFactionRelationship
@@ -19,7 +19,7 @@ import preponderous.ponder.command.unquote
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionRelationshipViewCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRelationshipViewCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.relationship.view")) {
             sender.sendMessage("${BukkitChatColor.RED}${plugin.language["CommandFactionRelationshipViewNoPermission"]}")

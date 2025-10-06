@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.player
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.failure.OptimisticLockingFailureException
 import com.dansplugins.factionsystem.failure.ServiceFailure
 import com.dansplugins.factionsystem.failure.ServiceFailureType
@@ -15,7 +15,7 @@ import java.util.concurrent.ConcurrentHashMap
 import java.util.logging.Level.SEVERE
 import kotlin.collections.set
 
-class MfPlayerService(private val plugin: MedievalFactions, private val playerRepository: MfPlayerRepository) {
+class MfPlayerService(private val plugin: RemoFactions, private val playerRepository: MfPlayerRepository) {
 
     private val playersById: MutableMap<MfPlayerId, MfPlayer> = ConcurrentHashMap()
 
