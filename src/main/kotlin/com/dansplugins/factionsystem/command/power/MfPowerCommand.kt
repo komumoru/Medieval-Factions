@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.power
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.power.set.MfPowerSetCommand
 import org.bukkit.ChatColor.RED
 import org.bukkit.command.Command
@@ -8,7 +8,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfPowerCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfPowerCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val powerSetCommand = MfPowerSetCommand(plugin)
 

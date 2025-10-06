@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfChunkPosition
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -14,7 +14,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.PlayerMoveEvent
 import java.util.logging.Level.SEVERE
 
-class PlayerMoveListener(private val plugin: MedievalFactions) : Listener {
+class PlayerMoveListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onPlayerMove(event: PlayerMoveEvent) {

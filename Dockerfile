@@ -11,7 +11,7 @@ RUN git config --global --unset core.autocrlf || :
 RUN java -jar BuildTools.jar --rev 1.21.4
 
 # Copy plugin jar
-COPY ./build/libs /testmcserver-build/MedievalFactions/build/libs
+COPY ./build/libs /testmcserver-build/RemoFactions/build/libs
 
 # Copy resources and make post-create.sh executable
 COPY ./.testcontainer /resources

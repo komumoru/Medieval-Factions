@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.approveapp
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.approveapp.tasks.ApproveApplicationTask
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.Command
@@ -9,7 +9,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
-class MfFactionApproveAppCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionApproveAppCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>?): Boolean {
         if (!sender.hasPermission("mf.approveapp")) {
             sender.sendMessage("${ChatColor.RED}${plugin.language["CommandFactionApproveAppNoPermission"]}")

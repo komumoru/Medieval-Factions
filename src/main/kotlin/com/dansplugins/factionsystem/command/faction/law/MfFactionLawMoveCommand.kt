@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.law
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.law.MfLawId
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -16,7 +16,7 @@ import org.bukkit.conversations.StringPrompt
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class MfFactionLawMoveCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionLawMoveCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.law.move")) {
             sender.sendMessage("${ChatColor.RED}${plugin.language["CommandFactionLawMoveNoPermission"]}")

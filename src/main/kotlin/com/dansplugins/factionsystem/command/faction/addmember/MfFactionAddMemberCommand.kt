@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.addmember
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionMember
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -15,7 +15,7 @@ import preponderous.ponder.command.dropFirst
 import java.util.logging.Level
 import java.util.logging.Level.SEVERE
 
-class MfFactionAddMemberCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionAddMemberCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.force.addmember") && !sender.hasPermission("mf.force.join")) {

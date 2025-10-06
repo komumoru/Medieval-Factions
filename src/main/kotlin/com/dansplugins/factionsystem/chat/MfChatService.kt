@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.chat
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.ALLIES
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.FACTION
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.VASSALS
@@ -11,7 +11,7 @@ import com.dansplugins.factionsystem.relationship.MfFactionRelationshipType.ALLY
 import net.md_5.bungee.api.ChatColor
 import java.time.Instant
 
-class MfChatService(private val plugin: MedievalFactions, private val repo: MfChatChannelMessageRepository) {
+class MfChatService(private val plugin: RemoFactions, private val repo: MfChatChannelMessageRepository) {
 
     fun sendMessage(mfPlayer: MfPlayer, faction: MfFaction, channel: MfFactionChatChannel, message: String) {
         val bukkitPlayer = mfPlayer.toBukkit()
@@ -66,7 +66,7 @@ class MfChatService(private val plugin: MedievalFactions, private val repo: MfCh
             }
         )
         // Using console sender means that colour codes will come through in console
-        // It doesn't automatically give the [MedievalFactions] prefix like with the plugin's logger though
+        // It doesn't automatically give the [RemoFactions] prefix like with the plugin's logger though
         // If we want to use the plugin's logger we could do something like ChatColor.stripColor.
         plugin.server.consoleSender.sendMessage(formattedMessage)
     }

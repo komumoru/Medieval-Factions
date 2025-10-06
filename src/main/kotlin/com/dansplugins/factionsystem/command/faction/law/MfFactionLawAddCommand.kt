@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.law
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.law.MfLaw
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -13,7 +13,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class MfFactionLawAddCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionLawAddCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.law.add") || !sender.hasPermission("mf.addlaw")) {
             sender.sendMessage("$RED${plugin.language["CommandFactionLawAddNoPermission"]}")

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import com.dansplugins.factionsystem.relationship.MfFactionRelationshipType
 import org.bukkit.entity.Player
@@ -9,7 +9,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.entity.PotionSplashEvent
 import org.bukkit.potion.PotionEffectType
 
-class PotionSplashListener(private val plugin: MedievalFactions) : Listener {
+class PotionSplashListener(private val plugin: RemoFactions) : Listener {
 
     private val harmfulPotionEffectTypes = listOf(
         "BAD_OMEN",

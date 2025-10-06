@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.chat
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel.FACTION
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -14,7 +14,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class MfFactionChatCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionChatCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val chatHistoryCommand = MfFactionChatHistoryCommand(plugin)
 
     private val historyAliases = listOf("history", "logs", "log", plugin.language["CmdFactionChatHistory"])

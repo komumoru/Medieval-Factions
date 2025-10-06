@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.claim
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfChunkPosition
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -17,7 +17,7 @@ import java.text.DecimalFormatSymbols
 import java.util.logging.Level
 import kotlin.math.floor
 
-class MfFactionClaimCircleCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionClaimCircleCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val decimalFormat = DecimalFormat("0", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

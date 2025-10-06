@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.info
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -20,7 +20,7 @@ import java.util.logging.Level.SEVERE
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionInfoCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionInfoCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.info")) {
             sender.sendMessage("${BukkitChatColor.RED}${plugin.language["CommandFactionInfoNoPermission"]}")

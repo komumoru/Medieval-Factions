@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimService
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFactionId
@@ -23,14 +23,14 @@ import java.util.UUID
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
 class OfflineProtectionListenerTest {
 
-    private lateinit var plugin: MedievalFactions
+    private lateinit var plugin: RemoFactions
     private lateinit var claimService: MfClaimService
     private lateinit var factionService: MfFactionService
     private lateinit var uut: OfflineProtectionListener
 
     @BeforeEach
     fun setUp() {
-        plugin = mock(MedievalFactions::class.java)
+        plugin = mock(RemoFactions::class.java)
         mockServices()
         uut = OfflineProtectionListener(plugin)
     }

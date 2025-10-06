@@ -1,12 +1,12 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.EntityExplodeEvent
 
-class EntityExplodeListener(private val plugin: MedievalFactions) : Listener {
+class EntityExplodeListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onEntityExplode(event: EntityExplodeEvent) {

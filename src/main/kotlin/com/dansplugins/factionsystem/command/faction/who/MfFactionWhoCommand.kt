@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.who
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor.GREEN
@@ -11,7 +11,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import java.util.logging.Level.SEVERE
 
-class MfFactionWhoCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionWhoCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.who")) {
             sender.sendMessage("$RED${plugin.language["CommandFactionWhoNoPermission"]}")

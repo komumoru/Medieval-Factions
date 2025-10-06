@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.join
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
 import com.dansplugins.factionsystem.faction.MfFactionMember
@@ -22,7 +22,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 
-class MfFactionJoinCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionJoinCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.join")) {
             sender.sendMessage("$RED${plugin.language["CommandFactionJoinNoPermission"]}")

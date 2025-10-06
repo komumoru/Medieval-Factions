@@ -1,13 +1,13 @@
 package com.dansplugins.factionsystem.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.permission.MfFactionPermission
 import org.bukkit.Bukkit
 import org.bukkit.configuration.serialization.ConfigurationSerializable
 
 data class MfFactionRole(
-    val plugin: MedievalFactions,
+    val plugin: RemoFactions,
     @get:JvmName("getId")
     val id: MfFactionRoleId = MfFactionRoleId.generate(),
     val name: String,
@@ -39,7 +39,7 @@ data class MfFactionRole(
             val name = serialized["name"] as String
             val permissionsByName = serialized["permissions"] as Map<String, Boolean?>
             return MfFactionRole(
-                Bukkit.getPluginManager().getPlugin("MedievalFactions") as MedievalFactions,
+                Bukkit.getPluginManager().getPlugin("RemoFactions") as RemoFactions,
                 id,
                 name,
                 permissionsByName

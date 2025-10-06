@@ -1,12 +1,12 @@
 package com.dansplugins.factionsystem.lang
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import java.io.File
 import java.net.URLClassLoader
 import java.text.MessageFormat
 import java.util.*
 
-class Language(plugin: MedievalFactions, private val language: String) {
+class Language(plugin: RemoFactions, private val language: String) {
 
     private val resourceBundles: List<ResourceBundle>
     val locale: Locale = Locale.forLanguageTag(language)

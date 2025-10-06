@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.player
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel
 import org.bukkit.OfflinePlayer
 
@@ -17,7 +17,7 @@ data class MfPlayer(
     fun toBukkit() = id.toBukkitPlayer()
 
     constructor(
-        plugin: MedievalFactions,
+        plugin: RemoFactions,
         id: MfPlayerId,
         name: String?
     ) : this(
@@ -45,7 +45,7 @@ data class MfPlayer(
     )
 
     constructor(
-        plugin: MedievalFactions,
+        plugin: RemoFactions,
         player: OfflinePlayer
     ) : this(
         MfPlayerId.fromBukkitPlayer(player),

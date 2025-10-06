@@ -1,11 +1,11 @@
 package com.dansplugins.factionsystem.faction.flag
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import java.awt.Color
 import kotlin.random.Random
 
 class MfFlags(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val flags: MutableList<MfFlag<out Any>> = mutableListOf(
         MfFlag.boolean(
             plugin,

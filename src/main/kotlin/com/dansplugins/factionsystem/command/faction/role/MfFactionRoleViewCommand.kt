@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.pagination.PaginatedView
 import com.dansplugins.factionsystem.player.MfPlayer
 import com.dansplugins.factionsystem.player.MfPlayerId
@@ -20,7 +20,7 @@ import java.util.logging.Level
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionRoleViewCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRoleViewCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.role.view")) {

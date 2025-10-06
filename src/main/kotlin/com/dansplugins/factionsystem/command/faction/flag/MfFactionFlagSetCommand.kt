@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.flag
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.flag.MfFlag
 import com.dansplugins.factionsystem.faction.flag.MfFlagValidationFailure
 import com.dansplugins.factionsystem.faction.flag.MfFlagValidationSuccess
@@ -21,7 +21,7 @@ import org.bukkit.conversations.ValidatingPrompt
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfFactionFlagSetCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionFlagSetCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

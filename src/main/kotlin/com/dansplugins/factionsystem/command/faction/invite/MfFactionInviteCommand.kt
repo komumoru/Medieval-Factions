@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.invite
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFactionInvite
 import com.dansplugins.factionsystem.notification.MfNotification
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -25,7 +25,7 @@ import java.util.logging.Level.SEVERE
 import net.md_5.bungee.api.ChatColor as SpigotChatColor
 import org.bukkit.ChatColor as BukkitChatColor
 
-class MfFactionInviteCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionInviteCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

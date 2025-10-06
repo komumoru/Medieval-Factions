@@ -15,7 +15,7 @@ Thank you for being interested in contributing to the project! It wouldn't be wh
 ## Getting Started
 - If you don't already have a GitHub account, you can sign up for one [here](https://github.com/signup).
 - Fork the repository on GitHub by clicking the "Fork" button on the top right of the repository page.
-- Clone your fork of the repository to your local machine using `git clone https://www.github.com/<your-username>/Medieval-Factions.git`
+- Clone your fork of the repository to your local machine using `git clone https://www.github.com/<your-username>/RemoFactions.git`
 - Open the project in your preferred text editor or IDE.
 - Try compiling the plugin using the following command:
   ```bash
@@ -25,10 +25,10 @@ Thank you for being interested in contributing to the project! It wouldn't be wh
 
 ## Identifying What To Work On
 ### Issues
-Work items are tracked as GitHub issues. You can find a full list of issues [here](https://github.com/Dans-Plugins/Medieval-Factions/issues).
+Work items are tracked as GitHub issues. You can find a full list of issues [here](https://github.com/Dans-Plugins/RemoFactions/issues).
 
 ### Milestones
-Work items are organized into milestones, which represent a specific version of the plugin. You can find the milestones [here](https://github.com/Dans-Plugins/Medieval-Factions/milestones).
+Work items are organized into milestones, which represent a specific version of the plugin. You can find the milestones [here](https://github.com/Dans-Plugins/RemoFactions/milestones).
 
 ## Making Changes
 - Before you start working on something, make sure there is an issue for it. If there isn't, create one.

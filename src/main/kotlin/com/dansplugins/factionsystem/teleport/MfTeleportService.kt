@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.teleport
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.ChatColor
 import org.bukkit.ChatColor.GRAY
 import org.bukkit.Location
@@ -8,7 +8,7 @@ import org.bukkit.entity.Player
 import org.bukkit.scheduler.BukkitTask
 import java.util.*
 
-class MfTeleportService(private val plugin: MedievalFactions) {
+class MfTeleportService(private val plugin: RemoFactions) {
 
     private val tasks = mutableMapOf<UUID, BukkitTask>()
 

@@ -75,7 +75,7 @@ import com.dansplugins.factionsystem.notification.MfNotificationService
 import com.dansplugins.factionsystem.notification.mailboxes.MailboxesNotificationService
 import com.dansplugins.factionsystem.notification.noop.NoOpNotificationService
 import com.dansplugins.factionsystem.notification.rpkit.RpkNotificationService
-import com.dansplugins.factionsystem.placeholder.MedievalFactionsPlaceholderExpansion
+import com.dansplugins.factionsystem.placeholder.RemoFactionsPlaceholderExpansion
 import com.dansplugins.factionsystem.player.JooqMfPlayerRepository
 import com.dansplugins.factionsystem.player.MfPlayerId
 import com.dansplugins.factionsystem.player.MfPlayerRepository
@@ -113,7 +113,7 @@ import javax.sql.DataSource
 import kotlin.math.floor
 import kotlin.math.roundToInt
 
-class MedievalFactions : JavaPlugin() {
+class RemoFactions : JavaPlugin() {
 
     private lateinit var dataSource: DataSource
 
@@ -131,7 +131,7 @@ class MedievalFactions : JavaPlugin() {
             config.options().copyDefaults(true)
             config.set("migrateMf4", true)
             saveConfig()
-            logger.warning("Shutting down the server due to Medieval Factions 4 migration.")
+            logger.warning("Shutting down the server due to RemoFactions 4 migration.")
             logger.warning("If you have a database, please configure it before starting the server again.")
             logger.warning("Otherwise, simply start your server again to begin migration.")
             server.shutdown()
@@ -300,7 +300,7 @@ class MedievalFactions : JavaPlugin() {
         }
 
         if (server.pluginManager.getPlugin("PlaceholderAPI") != null) {
-            MedievalFactionsPlaceholderExpansion(this).register()
+            RemoFactionsPlaceholderExpansion(this).register()
         }
 
         if (config.getBoolean("dynmap.onlyRenderTerritoriesUponStartup")) {

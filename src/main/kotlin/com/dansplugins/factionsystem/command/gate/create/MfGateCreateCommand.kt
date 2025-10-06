@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.gate.create
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.gate.MfGateCreationContext
 import com.dansplugins.factionsystem.interaction.MfInteractionStatus.SELECTING_GATE_POSITION_1
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -14,7 +14,7 @@ import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfGateCreateCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfGateCreateCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.gate")) {
             sender.sendMessage("$RED${plugin.language["CommandGateCreateNoPermission"]}")

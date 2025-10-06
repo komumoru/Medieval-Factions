@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.locks;
 
-import com.dansplugins.factionsystem.MedievalFactions;
+import com.dansplugins.factionsystem.RemoFactions;
 import com.dansplugins.factionsystem.area.MfBlockPosition;
 import com.dansplugins.factionsystem.interaction.MfInteractionService;
 import com.dansplugins.factionsystem.interaction.MfInteractionStatus;
@@ -19,9 +19,9 @@ import static java.util.concurrent.CompletableFuture.runAsync;
 
 public final class MfRpkLockService implements RPKLockService {
 
-    private final MedievalFactions plugin;
+    private final RemoFactions plugin;
 
-    public MfRpkLockService(MedievalFactions plugin) {
+    public MfRpkLockService(RemoFactions plugin) {
         this.plugin = plugin;
         Services.INSTANCE.set(RPKLockService.class, this);
     }
@@ -92,7 +92,7 @@ public final class MfRpkLockService implements RPKLockService {
     }
 
     @Override
-    public MedievalFactions getPlugin() {
+    public RemoFactions getPlugin() {
         return plugin;
     }
 }

@@ -1,11 +1,11 @@
 package com.dansplugins.factionsystem.command.faction.showapps.tasks
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.entity.Player
 
 class ShowAppsForPlayersFactionTask(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val sender: Player
 ) : Runnable {
 

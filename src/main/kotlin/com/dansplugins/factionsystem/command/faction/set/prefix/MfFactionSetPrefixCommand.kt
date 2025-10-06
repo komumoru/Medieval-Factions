@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.set.prefix
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor
@@ -15,7 +15,7 @@ import org.bukkit.conversations.StringPrompt
 import org.bukkit.entity.Player
 import java.util.logging.Level
 
-class MfFactionSetPrefixCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionSetPrefixCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)
         .withFirstPrompt(PrefixPrompt())

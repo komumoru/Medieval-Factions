@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.map.dynmap
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimService
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.dynmap.TaskScheduler
@@ -21,9 +21,9 @@ import java.util.concurrent.ConcurrentHashMap
 /**
  * Service for managing Dynmap markers for factions.
  *
- * @param plugin The MedievalFactions plugin instance.
+ * @param plugin The RemoFactions plugin instance.
  */
-class DynmapService(private val plugin: MedievalFactions) : MapService {
+class DynmapService(private val plugin: RemoFactions) : MapService {
 
     private val dynmap = plugin.server.pluginManager.getPlugin("dynmap") as DynmapAPI
     private val factionMarkersByFactionId = ConcurrentHashMap<MfFactionId, List<AreaMarker>>()

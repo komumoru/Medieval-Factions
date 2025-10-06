@@ -1,12 +1,12 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import org.bukkit.entity.Player
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.entity.LingeringPotionSplashEvent
 
-class LingeringPotionSplashListener(private val plugin: MedievalFactions) : Listener {
+class LingeringPotionSplashListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onLingeringPotionSplash(event: LingeringPotionSplashEvent) {

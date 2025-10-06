@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfPosition
 import com.dansplugins.factionsystem.faction.flag.MfFlagValues
 import com.dansplugins.factionsystem.faction.role.MfFactionRole
@@ -25,7 +25,7 @@ import org.jooq.impl.DSL.`val`
 import java.util.*
 
 class JooqMfFactionRepository(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val dsl: DSLContext,
     private val gson: Gson
 ) : MfFactionRepository {

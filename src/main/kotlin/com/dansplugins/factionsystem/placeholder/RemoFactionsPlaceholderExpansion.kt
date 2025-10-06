@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.placeholder
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.flag.MfFlag
 import com.dansplugins.factionsystem.relationship.MfFactionRelationshipType.ALLY
@@ -17,7 +17,7 @@ import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
 import kotlin.math.floor
 
-class MedievalFactionsPlaceholderExpansion(private val plugin: MedievalFactions) : PlaceholderExpansion(), Relational {
+class RemoFactionsPlaceholderExpansion(private val plugin: RemoFactions) : PlaceholderExpansion(), Relational {
 
     private val decimalFormat = DecimalFormat("0", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

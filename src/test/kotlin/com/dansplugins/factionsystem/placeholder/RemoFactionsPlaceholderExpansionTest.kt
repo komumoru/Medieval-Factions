@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.placeholder
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimService
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFaction
@@ -27,32 +27,32 @@ import org.mockito.Mockito.`when`
 import java.util.*
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
-class MedievalFactionsPlaceholderExpansionTest {
+class RemoFactionsPlaceholderExpansionTest {
 
     private lateinit var fixture: PlaceholderExpansionTestFixture
-    private lateinit var plugin: MedievalFactions
+    private lateinit var plugin: RemoFactions
     private lateinit var factionService: MfFactionService
     private lateinit var playerService: MfPlayerService
     private lateinit var gateService: MfGateService
     private lateinit var claimService: MfClaimService
     private lateinit var relationshipService: MfFactionRelationshipService
     private lateinit var language: Language
-    private lateinit var uut: MedievalFactionsPlaceholderExpansion
+    private lateinit var uut: RemoFactionsPlaceholderExpansion
 
     @BeforeEach
     fun setUp() {
         fixture = createFixture()
-        plugin = mock(MedievalFactions::class.java)
-        `when`(plugin.name).thenReturn("MedievalFactions")
+        plugin = mock(RemoFactions::class.java)
+        `when`(plugin.name).thenReturn("RemoFactions")
         mockServices()
         mockLanguageSystem()
-        uut = MedievalFactionsPlaceholderExpansion(plugin)
+        uut = RemoFactionsPlaceholderExpansion(plugin)
     }
 
     @Test
     fun testGetIdentifier() {
         val identifier = uut.identifier
-        assertEquals("MedievalFactions", identifier)
+        assertEquals("RemoFactions", identifier)
     }
 
     @Test

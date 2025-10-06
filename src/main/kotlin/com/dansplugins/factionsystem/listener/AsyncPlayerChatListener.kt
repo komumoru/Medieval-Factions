@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import net.md_5.bungee.api.ChatColor
@@ -10,7 +10,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.player.AsyncPlayerChatEvent
 import java.util.logging.Level.SEVERE
 
-class AsyncPlayerChatListener(private val plugin: MedievalFactions) : Listener {
+class AsyncPlayerChatListener(private val plugin: RemoFactions) : Listener {
 
     private val isDefaultChatFormattingEnabled = plugin.config.getBoolean("chat.enableDefaultChatFormatting")
 

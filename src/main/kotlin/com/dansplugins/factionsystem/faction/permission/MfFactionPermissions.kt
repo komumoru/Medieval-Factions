@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction.permission
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.chat.MfFactionChatChannel
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionId
@@ -17,7 +17,7 @@ import com.dansplugins.factionsystem.faction.role.MfFactionRoles
 import java.util.*
 import java.util.concurrent.CopyOnWriteArrayList
 
-class MfFactionPermissions(private val plugin: MedievalFactions) {
+class MfFactionPermissions(private val plugin: RemoFactions) {
 
     private val _permissionTypes = CopyOnWriteArrayList<MfFactionPermissionType>()
     val permissionTypes: List<MfFactionPermissionType>

@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.showapps
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.showapps.tasks.ShowAppsForPlayersFactionTask
 import net.md_5.bungee.api.ChatColor
 import org.bukkit.command.Command
@@ -11,7 +11,7 @@ import org.bukkit.entity.Player
 /**
  * Shows the applications for the sender's faction.
  */
-class MfShowAppsCommand(private val plugin: MedievalFactions) : CommandExecutor {
+class MfShowAppsCommand(private val plugin: RemoFactions) : CommandExecutor {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.showapps")) {

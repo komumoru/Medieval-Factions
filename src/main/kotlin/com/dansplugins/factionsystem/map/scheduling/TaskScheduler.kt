@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.dynmap
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFactionId
 import org.bukkit.scheduler.BukkitRunnable
 import org.bukkit.scheduler.BukkitTask
@@ -9,9 +9,9 @@ import java.util.*
 /**
  * A class responsible for scheduling and managing tasks related to faction updates.
  *
- * @param plugin The MedievalFactions plugin instance.
+ * @param plugin The RemoFactions plugin instance.
  */
-class TaskScheduler(private val plugin: MedievalFactions) {
+class TaskScheduler(private val plugin: RemoFactions) {
 
     private val updateTasks: MutableMap<MfFactionId, MutableList<BukkitTask>> =
         Collections.synchronizedMap(mutableMapOf<MfFactionId, MutableList<BukkitTask>>())

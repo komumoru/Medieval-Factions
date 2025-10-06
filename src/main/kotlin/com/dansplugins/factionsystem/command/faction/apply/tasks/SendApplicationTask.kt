@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.apply.tasks
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import com.dansplugins.factionsystem.faction.MfFactionApplication
 import com.dansplugins.factionsystem.faction.MfFactionService
@@ -12,7 +12,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
 class SendApplicationTask(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val sender: Player,
     private val targetFactionName: String
 ) : Runnable {

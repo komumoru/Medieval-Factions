@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.role
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.role.MfFactionRole
 import com.dansplugins.factionsystem.faction.role.MfFactionRoles
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -18,7 +18,7 @@ import org.bukkit.conversations.StringPrompt
 import org.bukkit.entity.Player
 import java.util.logging.Level.SEVERE
 
-class MfFactionRoleCreateCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionRoleCreateCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val conversationFactory = ConversationFactory(plugin)
         .withModality(true)

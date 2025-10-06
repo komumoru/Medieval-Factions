@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfPosition
 import com.dansplugins.factionsystem.faction.flag.MfFlagValues
 import com.dansplugins.factionsystem.faction.permission.MfFactionPermission
@@ -12,7 +12,7 @@ import com.dansplugins.factionsystem.player.MfPlayerId
 import java.util.Collections.emptyList
 
 data class MfFaction(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     @get:JvmName("getId")
     val id: MfFactionId = MfFactionId.generate(),
     val version: Int = 0,

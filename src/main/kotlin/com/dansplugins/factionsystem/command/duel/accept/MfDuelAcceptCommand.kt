@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.duel.accept
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfPosition
 import com.dansplugins.factionsystem.duel.MfDuel
 import com.dansplugins.factionsystem.player.MfPlayer
@@ -23,7 +23,7 @@ import java.time.Instant
 import java.util.logging.Level
 import java.util.logging.Level.SEVERE
 
-class MfDuelAcceptCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfDuelAcceptCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.duel")) {
             sender.sendMessage("$RED${plugin.language["CommandDuelAcceptNoPermission"]}")

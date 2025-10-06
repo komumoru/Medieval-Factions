@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.map.builders
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFaction
 import java.text.DecimalFormat
 import java.text.DecimalFormatSymbols
@@ -10,9 +10,9 @@ import kotlin.math.roundToInt
 /**
  * A builder class for creating faction information in HTML format.
  *
- * @param plugin The MedievalFactions plugin instance.
+ * @param plugin The RemoFactions plugin instance.
  */
-class FactionInfoBuilder(private val plugin: MedievalFactions) {
+class FactionInfoBuilder(private val plugin: RemoFactions) {
 
     private val decimalFormat = DecimalFormat("0", DecimalFormatSymbols.getInstance(plugin.language.locale))
 

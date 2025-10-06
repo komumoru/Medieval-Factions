@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.gate
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.area.MfCuboidArea
 import com.dansplugins.factionsystem.faction.MfFactionId
@@ -11,7 +11,7 @@ import org.bukkit.Sound
 import java.util.logging.Level
 
 data class MfGate(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     @get:JvmName("getId")
     val id: MfGateId = MfGateId.generate(),
     val version: Int = 0,

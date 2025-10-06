@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.apply
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.TestUtils
 import com.dansplugins.factionsystem.command.faction.apply.tasks.CancelApplicationTask
 import com.dansplugins.factionsystem.command.faction.apply.tasks.SendApplicationTask
@@ -27,7 +27,7 @@ class MfFactionApplyCommandTest {
     private val testUtils = TestUtils()
 
     private lateinit var fixture: TestUtils.CommandTestFixture
-    private lateinit var plugin: MedievalFactions
+    private lateinit var plugin: RemoFactions
     private lateinit var factionService: MfFactionService
     private lateinit var playerService: MfPlayerService
     private lateinit var language: Language
@@ -36,7 +36,7 @@ class MfFactionApplyCommandTest {
     @BeforeEach
     fun setUp() {
         fixture = testUtils.createCommandTestFixture()
-        plugin = mock(MedievalFactions::class.java)
+        plugin = mock(RemoFactions::class.java)
         mockServices()
         mockLanguageSystem()
         mockScheduler()

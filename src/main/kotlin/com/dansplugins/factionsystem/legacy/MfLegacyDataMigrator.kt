@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.legacy
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.area.MfChunkPosition
 import com.dansplugins.factionsystem.area.MfCuboidArea
@@ -34,18 +34,18 @@ import java.time.format.DateTimeFormatter.ISO_INSTANT
 import java.util.logging.Level.SEVERE
 import kotlin.math.roundToInt
 
-class MfLegacyDataMigrator(private val plugin: MedievalFactions) {
+class MfLegacyDataMigrator(private val plugin: RemoFactions) {
 
     fun backup() {
-        plugin.logger.info("Backing up Medieval Factions 4 data...")
+        plugin.logger.info("Backing up RemoFactions 4 data...")
         val startTime = System.currentTimeMillis()
         val backupFolder = File(plugin.dataFolder, "mf4_backup")
         backupOldFiles(backupFolder)
-        plugin.logger.info("Backed up Medieval Factions 4 data (${System.currentTimeMillis() - startTime}ms)")
+        plugin.logger.info("Backed up RemoFactions 4 data (${System.currentTimeMillis() - startTime}ms)")
     }
 
     fun migrate() {
-        plugin.logger.info("Migrating Medieval Factions 4 data...")
+        plugin.logger.info("Migrating RemoFactions 4 data...")
         val startTime = System.currentTimeMillis()
         val backupFolder = File(plugin.dataFolder, "mf4_backup")
         migrateConfig(File(backupFolder, "config.yml"))
@@ -54,7 +54,7 @@ class MfLegacyDataMigrator(private val plugin: MedievalFactions) {
         migrateFactions(File(backupFolder, "factions.json"), gson)
         migrateClaimedChunks(File(backupFolder, "claimedchunks.json"), gson)
         migrateLockedBlocks(File(backupFolder, "lockedblocks.json"), gson)
-        plugin.logger.info("Migrated Medieval Factions 4 data (${System.currentTimeMillis() - startTime}ms)")
+        plugin.logger.info("Migrated RemoFactions 4 data (${System.currentTimeMillis() - startTime}ms)")
     }
 
     private fun backupOldFiles(backupFolder: File) {

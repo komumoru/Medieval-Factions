@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfPosition
 import com.dansplugins.factionsystem.event.faction.FactionCreateEvent
 import com.dansplugins.factionsystem.event.faction.FactionDescriptionChangeEvent
@@ -27,7 +27,7 @@ import dev.forkhandles.result4k.resultFrom
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
-class MfFactionService(private val plugin: MedievalFactions, private val repository: MfFactionRepository) {
+class MfFactionService(private val plugin: RemoFactions, private val repository: MfFactionRepository) {
 
     private val factionsById: MutableMap<MfFactionId, MfFaction> = ConcurrentHashMap()
     val factions: List<MfFaction>

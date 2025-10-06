@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.faction.flag
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import kotlin.reflect.KClass
 
 data class MfFlag<T : Any>(
@@ -35,7 +35,7 @@ data class MfFlag<T : Any>(
         )
 
         fun boolean(
-            plugin: MedievalFactions,
+            plugin: RemoFactions,
             name: String,
             default: () -> Boolean,
             validate: (value: Boolean) -> MfFlagValidationResult = { MfFlagValidationSuccess }
@@ -48,7 +48,7 @@ data class MfFlag<T : Any>(
         )
 
         fun boolean(
-            plugin: MedievalFactions,
+            plugin: RemoFactions,
             name: String,
             defaultValue: Boolean,
             validate: (value: Boolean) -> MfFlagValidationResult = { MfFlagValidationSuccess }

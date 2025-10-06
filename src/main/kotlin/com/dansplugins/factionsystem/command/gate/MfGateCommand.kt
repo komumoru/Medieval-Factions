@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.gate
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.gate.cancel.MfGateCancelCommand
 import com.dansplugins.factionsystem.command.gate.create.MfGateCreateCommand
 import com.dansplugins.factionsystem.command.gate.remove.MfGateRemoveCommand
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandExecutor
 import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 
-class MfGateCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfGateCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     private val gateCreateCommand = MfGateCreateCommand(plugin)
     private val gateRemoveCommand = MfGateRemoveCommand(plugin)

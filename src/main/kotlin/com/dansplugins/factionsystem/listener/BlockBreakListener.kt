@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.area.MfBlockPosition
 import com.dansplugins.factionsystem.locks.MfUnlockResult.FAILURE
 import com.dansplugins.factionsystem.locks.MfUnlockResult.SUCCESS
@@ -13,7 +13,7 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import java.util.logging.Level.SEVERE
 
-class BlockBreakListener(private val plugin: MedievalFactions) : Listener {
+class BlockBreakListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {

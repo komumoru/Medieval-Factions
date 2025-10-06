@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.approveapp.tasks
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.faction.MfFactionMember
 import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
@@ -9,7 +9,7 @@ import org.bukkit.entity.Player
 import java.util.logging.Level
 
 class ApproveApplicationTask(
-    private val plugin: MedievalFactions,
+    private val plugin: RemoFactions,
     private val sender: Player,
     private val targetPlayerName: String
 ) : Runnable {

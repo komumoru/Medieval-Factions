@@ -1,6 +1,6 @@
 package com.dansplugins.factionsystem.command.faction.apply
 
-import com.dansplugins.factionsystem.MedievalFactions
+import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.command.faction.apply.tasks.CancelApplicationTask
 import com.dansplugins.factionsystem.command.faction.apply.tasks.SendApplicationTask
 import net.md_5.bungee.api.ChatColor
@@ -10,7 +10,7 @@ import org.bukkit.command.CommandSender
 import org.bukkit.command.TabCompleter
 import org.bukkit.entity.Player
 
-class MfFactionApplyCommand(private val plugin: MedievalFactions) : CommandExecutor, TabCompleter {
+class MfFactionApplyCommand(private val plugin: RemoFactions) : CommandExecutor, TabCompleter {
 
     override fun onCommand(sender: CommandSender, command: Command, label: String, args: Array<out String>): Boolean {
         if (!sender.hasPermission("mf.apply")) {
