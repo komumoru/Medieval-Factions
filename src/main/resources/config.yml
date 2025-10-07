@@ -21,6 +21,7 @@ wilderness:
   place:
     prevent: false
     alert: true
+    restrictedBlocks: []
   break:
     prevent: false
     alert: true
