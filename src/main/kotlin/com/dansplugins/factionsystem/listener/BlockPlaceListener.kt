@@ -9,9 +9,12 @@ import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockPlaceEvent
+import java.util.Locale
 import java.util.logging.Level
 
 class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
+
+    private val invalidWildernessRestrictedBlockEntries = mutableSetOf<String>()
 
     @EventHandler
     fun onBlockPlace(event: BlockPlaceEvent) {
@@ -27,7 +30,10 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
-            if (plugin.config.getBoolean("wilderness.place.prevent", false)) {
+            val preventAllPlacement = plugin.config.getBoolean("wilderness.place.prevent", false)
+            val blockIsRestricted =
+                !preventAllPlacement && getWildernessRestrictedBlocks().contains(event.block.type)
+            if (preventAllPlacement || blockIsRestricted) {
                 event.isCancelled = true
                 if (plugin.config.getBoolean("wilderness.place.alert", true)) {
                     event.player.sendMessage("$RED${plugin.language["CannotPlaceBlockInWilderness"]}")
@@ -68,5 +74,29 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
                 event.player.sendMessage("$RED${plugin.language["CannotPlaceBlockInFactionTerritory", claimFaction.name]}")
             }
         }
+    }
+
+    private fun getWildernessRestrictedBlocks(): Set<Material> {
+        val rawEntries: List<String>? = plugin.config.getStringList("wilderness.place.restrictedBlocks")
+        val materials = mutableSetOf<Material>()
+        rawEntries.orEmpty().forEach { rawEntry ->
+            val entry = rawEntry.trim()
+            if (entry.isEmpty()) {
+                return@forEach
+            }
+            val normalizedName = entry.substringAfter(':', entry).uppercase(Locale.ROOT)
+            val material = runCatching { Material.valueOf(normalizedName) }.getOrNull()
+            if (material != null) {
+                materials += material
+            } else {
+                if (invalidWildernessRestrictedBlockEntries.add(normalizedName)) {
+                    plugin.logger.log(
+                        Level.WARNING,
+                        "Unknown material '$entry' in wilderness.place.restrictedBlocks; ignoring."
+                    )
+                }
+            }
+        }
+        return materials
     }
 }
