@@ -19,10 +19,12 @@ import org.bukkit.event.block.BlockRedstoneEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
 import org.bukkit.event.world.StructureGrowEvent
+import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.mockito.Mockito.mock
+import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import java.util.UUID
@@ -131,6 +133,7 @@ class OfflineProtectionListenerTest {
 
         val location = Location(world, 1.0, 65.0, 1.0)
         `when`(world.getChunkAt(location)).thenReturn(chunk)
+        `when`(world.getChunkAt(0, 0)).thenReturn(chunk)
         `when`(chunk.x).thenReturn(0)
         `when`(chunk.z).thenReturn(0)
 
@@ -144,10 +147,140 @@ class OfflineProtectionListenerTest {
 
         val event = mock(ExplosionPrimeEvent::class.java)
         `when`(event.entity).thenReturn(entity)
+        `when`(event.radius).thenReturn(0.0f)
 
         uut.onExplosionPrime(event)
 
         verify(event).isCancelled = true
+    }
+
+    @Test
+    fun onExplosionPrime_radiusIntersectsProtectedChunk_shouldCancelExplosion() {
+        val config = mock(FileConfiguration::class.java)
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
+        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
+        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
+        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
+
+        val world = mock(World::class.java)
+        val worldId = UUID.randomUUID()
+        `when`(world.name).thenReturn("world")
+        `when`(world.uid).thenReturn(worldId)
+
+        val originChunk = mock(Chunk::class.java)
+        `when`(originChunk.world).thenReturn(world)
+        `when`(originChunk.x).thenReturn(1)
+        `when`(originChunk.z).thenReturn(1)
+
+        val claimedChunk = mock(Chunk::class.java)
+        `when`(claimedChunk.world).thenReturn(world)
+        `when`(claimedChunk.x).thenReturn(0)
+        `when`(claimedChunk.z).thenReturn(0)
+
+        val chunk01 = mock(Chunk::class.java)
+        `when`(chunk01.world).thenReturn(world)
+        `when`(chunk01.x).thenReturn(0)
+        `when`(chunk01.z).thenReturn(1)
+
+        val chunk10 = mock(Chunk::class.java)
+        `when`(chunk10.world).thenReturn(world)
+        `when`(chunk10.x).thenReturn(1)
+        `when`(chunk10.z).thenReturn(0)
+
+        val location = Location(world, 20.0, 65.0, 20.0)
+        `when`(world.getChunkAt(location)).thenReturn(originChunk)
+        `when`(world.getChunkAt(1, 1)).thenReturn(originChunk)
+        `when`(world.getChunkAt(0, 0)).thenReturn(claimedChunk)
+        `when`(world.getChunkAt(0, 1)).thenReturn(chunk01)
+        `when`(world.getChunkAt(1, 0)).thenReturn(chunk10)
+
+        val factionId = MfFactionId.generate()
+        val claim = MfClaimedChunk(worldId, 0, 0, factionId)
+        `when`(claimService.getClaim(claimedChunk)).thenReturn(claim)
+        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
+
+        val entity = mock(Entity::class.java)
+        `when`(entity.location).thenReturn(location)
+
+        val event = mock(ExplosionPrimeEvent::class.java)
+        `when`(event.entity).thenReturn(entity)
+        `when`(event.radius).thenReturn(6.0f)
+
+        uut.onExplosionPrime(event)
+
+        verify(event).isCancelled = true
+    }
+
+    @Test
+    fun onEntityExplode_blocksCleared_radiusStored_shouldCancelExplosion() {
+        val config = mock(FileConfiguration::class.java)
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
+        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
+        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
+        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
+
+        val world = mock(World::class.java)
+        val worldId = UUID.randomUUID()
+        `when`(world.name).thenReturn("world")
+        `when`(world.uid).thenReturn(worldId)
+
+        val originChunk = mock(Chunk::class.java)
+        `when`(originChunk.world).thenReturn(world)
+        `when`(originChunk.x).thenReturn(1)
+        `when`(originChunk.z).thenReturn(1)
+
+        val claimedChunk = mock(Chunk::class.java)
+        `when`(claimedChunk.world).thenReturn(world)
+        `when`(claimedChunk.x).thenReturn(0)
+        `when`(claimedChunk.z).thenReturn(0)
+
+        val chunk01 = mock(Chunk::class.java)
+        `when`(chunk01.world).thenReturn(world)
+        `when`(chunk01.x).thenReturn(0)
+        `when`(chunk01.z).thenReturn(1)
+
+        val chunk10 = mock(Chunk::class.java)
+        `when`(chunk10.world).thenReturn(world)
+        `when`(chunk10.x).thenReturn(1)
+        `when`(chunk10.z).thenReturn(0)
+
+        val location = Location(world, 20.0, 65.0, 20.0)
+        `when`(world.getChunkAt(location)).thenReturn(originChunk)
+        `when`(world.getChunkAt(1, 1)).thenReturn(originChunk)
+        `when`(world.getChunkAt(0, 0)).thenReturn(claimedChunk)
+        `when`(world.getChunkAt(0, 1)).thenReturn(chunk01)
+        `when`(world.getChunkAt(1, 0)).thenReturn(chunk10)
+
+        val factionId = MfFactionId.generate()
+        val claim = MfClaimedChunk(worldId, 0, 0, factionId)
+        `when`(claimService.getClaim(claimedChunk)).thenReturn(claim)
+        `when`(factionService.hasOnlineMember(factionId)).thenReturn(true, false)
+
+        val entity = mock(Entity::class.java)
+        val entityId = UUID.randomUUID()
+        `when`(entity.uniqueId).thenReturn(entityId)
+        `when`(entity.location).thenReturn(location)
+
+        val primeEvent = mock(ExplosionPrimeEvent::class.java)
+        `when`(primeEvent.entity).thenReturn(entity)
+        `when`(primeEvent.radius).thenReturn(6.0f)
+
+        uut.onExplosionPrime(primeEvent)
+
+        verify(primeEvent, never()).isCancelled = true
+
+        val blocks = mutableListOf<Block>()
+        val explodeEvent = mock(EntityExplodeEvent::class.java)
+        `when`(explodeEvent.blockList()).thenReturn(blocks)
+        `when`(explodeEvent.location).thenReturn(location)
+        `when`(explodeEvent.entity).thenReturn(entity)
+
+        uut.onEntityExplode(explodeEvent)
+
+        verify(explodeEvent).isCancelled = true
+        assertTrue(blocks.isEmpty())
     }
 
     @Test
