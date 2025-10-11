@@ -23,6 +23,7 @@ import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.block.BlockSpreadEvent
 import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.EntityChangeBlockEvent
 
 class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
 
