@@ -13,8 +13,8 @@ import org.bukkit.block.Block
 import org.bukkit.block.BlockState
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Entity
-import org.bukkit.event.block.BlockPhysicsEvent
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.block.BlockPhysicsEvent
 import org.bukkit.event.block.BlockRedstoneEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
