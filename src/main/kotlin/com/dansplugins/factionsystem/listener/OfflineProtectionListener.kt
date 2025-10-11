@@ -4,8 +4,9 @@ import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFactionId
 import org.bukkit.Chunk
-import org.bukkit.World
+import org.bukkit.Location
 import org.bukkit.block.Block
+import org.bukkit.entity.Entity
 import org.bukkit.event.EventHandler
 import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
@@ -35,8 +36,13 @@ import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
 import org.bukkit.event.world.StructureGrowEvent
+import java.util.UUID
+import java.util.concurrent.ConcurrentHashMap
+import kotlin.math.floor
 
 class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
+
+    private val primedExplosionRadii: MutableMap<UUID, Float> = ConcurrentHashMap()
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockBreak(event: BlockBreakEvent) {
@@ -220,7 +226,21 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityExplode(event: EntityExplodeEvent) {
         val location = event.location
-        handleExplosion(event.blockList(), location.world, location.chunk) {
+        val entity = event.entity as Entity?
+        if (entity == null) {
+            handleExplosion(event.blockList(), location.chunk, emptySet()) {
+                event.blockList().clear()
+                event.isCancelled = true
+            }
+            return
+        }
+        val radius = primedExplosionRadii.remove(entity.uniqueId)
+        val additionalChunks = if (location.world != null && radius != null) {
+            getChunksWithinRadius(location, radius)
+        } else {
+            emptySet()
+        }
+        handleExplosion(event.blockList(), location.chunk, additionalChunks) {
             event.blockList().clear()
             event.isCancelled = true
         }
@@ -231,14 +251,20 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val entity = event.entity
         val location = entity.location
         val originChunk = location.chunk
-        handleBlockChange(emptyList(), originChunk, isBlockDamage = true) {
+        val additionalChunks = getChunksWithinRadius(location, event.radius)
+        var cancelled = false
+        handleBlockChange(emptyList(), originChunk, additionalChunks, isBlockDamage = true) {
+            cancelled = true
             event.isCancelled = true
+        }
+        if (!cancelled) {
+            primedExplosionRadii[entity.uniqueId] = event.radius
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockExplode(event: BlockExplodeEvent) {
-        handleExplosion(event.blockList(), event.block.world, event.block.chunk) {
+        handleExplosion(event.blockList(), event.block.chunk, emptySet()) {
             event.blockList().clear()
             event.isCancelled = true
         }
@@ -246,14 +272,11 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
 
     private fun handleExplosion(
         blocks: MutableList<Block>,
-        world: World?,
         originChunk: Chunk?,
+        additionalChunks: Collection<Chunk>,
         cancel: () -> Unit
     ) {
-        if (world == null) {
-            return
-        }
-        handleBlockChange(blocks, originChunk, isBlockDamage = true) {
+        handleBlockChange(blocks, originChunk, additionalChunks, isBlockDamage = true) {
             cancel()
         }
     }
@@ -261,6 +284,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     private fun handleBlockChange(
         blocks: Collection<Block>,
         originChunk: Chunk?,
+        additionalChunks: Collection<Chunk> = emptyList(),
         isBlockDamage: Boolean,
         cancel: () -> Unit
     ) {
@@ -275,27 +299,20 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val allowWhenAnyMemberOnline = settings.allowWhenAnyMemberOnline
         val factionsToProtect = mutableMapOf<MfFactionId, Boolean>()
 
-        val protectedBlocksDetected = blocks.any { block ->
-            val world = block.world
-            if (settings.exemptWorlds.contains(world.name.lowercase())) {
+        val chunksToEvaluate = mutableSetOf<Chunk>()
+        blocks.mapTo(chunksToEvaluate, Block::getChunk)
+        originChunk?.let(chunksToEvaluate::add)
+        additionalChunks.mapTo(chunksToEvaluate) { it }
+
+        val protectedDetected = chunksToEvaluate.any { chunk ->
+            if (settings.exemptWorlds.contains(chunk.world.name.lowercase())) {
                 return@any false
             }
-            val claim = claimService.getClaim(block.chunk) ?: return@any false
+            val claim = claimService.getClaim(chunk) ?: return@any false
             shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
         }
 
-        val originProtected = if (originChunk != null) {
-            if (settings.exemptWorlds.contains(originChunk.world.name.lowercase())) {
-                false
-            } else {
-                val claim = claimService.getClaim(originChunk)
-                claim != null && shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
-            }
-        } else {
-            false
-        }
-
-        if (!protectedBlocksDetected && !originProtected) {
+        if (!protectedDetected) {
             return
         }
 
@@ -333,5 +350,24 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
             val factionService = plugin.services.factionService
             !factionService.hasOnlineMember(claim.factionId)
         }
+    }
+
+    private fun getChunksWithinRadius(location: Location, radius: Float): Set<Chunk> {
+        val world = location.world ?: return emptySet()
+        if (radius <= 0f) {
+            return setOf(location.chunk)
+        }
+        val radiusBlocks = radius.toDouble()
+        val minChunkX = floor((location.x - radiusBlocks) / 16.0).toInt()
+        val maxChunkX = floor((location.x + radiusBlocks) / 16.0).toInt()
+        val minChunkZ = floor((location.z - radiusBlocks) / 16.0).toInt()
+        val maxChunkZ = floor((location.z + radiusBlocks) / 16.0).toInt()
+        val chunks = mutableSetOf<Chunk>()
+        for (chunkX in minChunkX..maxChunkX) {
+            for (chunkZ in minChunkZ..maxChunkZ) {
+                chunks += world.getChunkAt(chunkX, chunkZ)
+            }
+        }
+        return chunks
     }
 }
