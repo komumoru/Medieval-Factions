@@ -11,8 +11,10 @@ import org.bukkit.ChatColor
 import org.bukkit.Material
 import org.bukkit.World
 import org.bukkit.block.Block
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.configuration.file.FileConfiguration
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock
@@ -27,7 +29,7 @@ class BlockPlaceListenerTest {
     private lateinit var medievalFactions: RemoFactions
     private lateinit var gateService: MfGateService
     private lateinit var claimService: MfClaimService
-    private lateinit var config: org.bukkit.configuration.file.FileConfiguration
+    private lateinit var config: FileConfiguration
     private lateinit var uut: BlockPlaceListener
 
     @BeforeEach
@@ -38,7 +40,7 @@ class BlockPlaceListenerTest {
         val defaultBlockPosition = MfBlockPosition.fromBukkitBlock(fixture.block)
         `when`(gateService.getGatesAt(defaultBlockPosition)).thenReturn(emptyList())
         mockLanguageSystem()
-        config = mock(org.bukkit.configuration.file.FileConfiguration::class.java)
+        config = mock(FileConfiguration::class.java)
         `when`(medievalFactions.config).thenReturn(config)
         `when`(config.getStringList("wilderness.place.restrictedBlocks")).thenReturn(emptyList())
         uut = BlockPlaceListener(medievalFactions)
