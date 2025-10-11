@@ -21,34 +21,30 @@ wilderness:
   place:
     prevent: false
     alert: true
-    restrictedBlocks: []
+    restrictedBlocks:
+    - TNT
+    - HOPPER
+    - BEACON
+    - ANVIL
+    - ENCHANTING_TABLE
   break:
     prevent: false
     alert: true
+    restrictedBlocks:
+    - BEACON
+    - ANVIL
+    - SPAWNER
 offlineBlastProtection:
   enabled: true
   onlyBlockDamage: true
   exemptWorlds: []
   allowWhenAnyMemberOnline: true
 territoryRestrictions:
-  enabled: true
+  enabled: false
   treatAlliesAsMembers: false
-  restrictedPlace:
-    - TNT
-    - HOPPER
-    - BEACON
-    - ANVIL
-    - ENCHANTING_TABLE
-  restrictedBreak:
-    - BEACON
-    - ANVIL
-    - SPAWNER
-  interactionWhitelist:
-    - CHEST
-    - DOOR
-    - LEVER
-    - BUTTON
-    - FURNACE
+  restrictedPlace: []
+  restrictedBreak: []
+  interactionWhitelist: []
   messages:
     notInOwnTerritory: "&cYou can only do that with this block inside your faction's territory."
 pvp:

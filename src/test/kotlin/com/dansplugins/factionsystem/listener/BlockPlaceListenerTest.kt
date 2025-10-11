@@ -14,7 +14,6 @@ import org.bukkit.block.Block
 import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
-import org.bukkit.configuration.file.FileConfiguration
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.mockito.Mockito.mock

@@ -8,12 +8,17 @@ import com.dansplugins.factionsystem.player.MfPlayer
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor.GREEN
 import org.bukkit.ChatColor.RED
+import org.bukkit.Material
 import org.bukkit.event.EventHandler
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
+import java.util.Locale
 import java.util.logging.Level.SEVERE
+import java.util.logging.Level.WARNING
 
 class BlockBreakListener(private val plugin: RemoFactions) : Listener {
+
+    private val invalidWildernessRestrictedBlockEntries = mutableSetOf<String>()
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
@@ -29,7 +34,10 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
-            if (plugin.config.getBoolean("wilderness.break.prevent", false)) {
+            val preventAllBreaking = plugin.config.getBoolean("wilderness.break.prevent", false)
+            val blockIsRestricted =
+                !preventAllBreaking && getWildernessRestrictedBlocks().contains(event.block.type)
+            if (preventAllBreaking || blockIsRestricted) {
                 event.isCancelled = true
                 if (plugin.config.getBoolean("wilderness.break.alert", true)) {
                     event.player.sendMessage("$RED${plugin.language["CannotBreakBlockInWilderness"]}")
@@ -88,5 +96,27 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
                 else -> {}
             }
         }
+    }
+
+    private fun getWildernessRestrictedBlocks(): Set<Material> {
+        val rawEntries = plugin.config.getStringList("wilderness.break.restrictedBlocks")
+        val materials = mutableSetOf<Material>()
+        rawEntries.orEmpty().forEach { rawEntry ->
+            val entry = rawEntry.trim()
+            if (entry.isEmpty()) {
+                return@forEach
+            }
+            val normalizedName = entry.substringAfter(':', entry).uppercase(Locale.ROOT)
+            val material = runCatching { Material.valueOf(normalizedName) }.getOrNull()
+            if (material != null) {
+                materials += material
+            } else if (invalidWildernessRestrictedBlockEntries.add(normalizedName)) {
+                plugin.logger.log(
+                    WARNING,
+                    "Unknown material '$entry' in wilderness.break.restrictedBlocks; ignoring."
+                )
+            }
+        }
+        return materials
     }
 }
