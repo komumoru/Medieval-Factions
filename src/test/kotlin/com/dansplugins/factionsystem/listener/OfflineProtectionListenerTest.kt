@@ -4,14 +4,12 @@ import com.dansplugins.factionsystem.RemoFactions
 import com.dansplugins.factionsystem.claim.MfClaimService
 import com.dansplugins.factionsystem.claim.MfClaimedChunk
 import com.dansplugins.factionsystem.faction.MfFactionId
-import com.dansplugins.factionsystem.faction.MfFactionService
 import com.dansplugins.factionsystem.service.Services
 import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.block.BlockState
-import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Entity
 import org.bukkit.event.block.BlockPhysicsEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -24,7 +22,6 @@ import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
 import org.mockito.Mockito.mock
-import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
 import java.util.UUID
@@ -34,7 +31,6 @@ class OfflineProtectionListenerTest {
 
     private lateinit var plugin: RemoFactions
     private lateinit var claimService: MfClaimService
-    private lateinit var factionService: MfFactionService
     private lateinit var uut: OfflineProtectionListener
 
     @BeforeEach
@@ -46,13 +42,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onEntityExplode_originChunkProtected_onlyBlockDamageFalse_shouldCancelExplosion() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -68,7 +57,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val event = mock(EntityExplodeEvent::class.java)
         val blocks = mutableListOf<Block>()
@@ -82,13 +70,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onBlockPlace_blockProtected_onlyBlockDamageFalse_shouldCancelPlacement() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -100,7 +81,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val block = mock(Block::class.java)
         `when`(block.world).thenReturn(world)
@@ -116,13 +96,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onExplosionPrime_originChunkProtected_shouldCancelExplosion() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -140,7 +113,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val entity = mock(Entity::class.java)
         `when`(entity.location).thenReturn(location)
@@ -156,13 +128,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onExplosionPrime_radiusIntersectsProtectedChunk_shouldCancelExplosion() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -198,7 +163,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(claimedChunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val entity = mock(Entity::class.java)
         `when`(entity.location).thenReturn(location)
@@ -213,14 +177,7 @@ class OfflineProtectionListenerTest {
     }
 
     @Test
-    fun onEntityExplode_blocksCleared_radiusStored_shouldCancelExplosion() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
+    fun onEntityExplode_blockListContainsProtectedChunk_shouldCancelExplosion() {
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -256,22 +213,13 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(claimedChunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(true, false)
 
         val entity = mock(Entity::class.java)
-        val entityId = UUID.randomUUID()
-        `when`(entity.uniqueId).thenReturn(entityId)
         `when`(entity.location).thenReturn(location)
 
-        val primeEvent = mock(ExplosionPrimeEvent::class.java)
-        `when`(primeEvent.entity).thenReturn(entity)
-        `when`(primeEvent.radius).thenReturn(6.0f)
-
-        uut.onExplosionPrime(primeEvent)
-
-        verify(primeEvent, never()).isCancelled = true
-
-        val blocks = mutableListOf<Block>()
+        val claimedBlock = mock(Block::class.java)
+        `when`(claimedBlock.chunk).thenReturn(claimedChunk)
+        val blocks = mutableListOf(claimedBlock)
         val explodeEvent = mock(EntityExplodeEvent::class.java)
         `when`(explodeEvent.blockList()).thenReturn(blocks)
         `when`(explodeEvent.location).thenReturn(location)
@@ -285,13 +233,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onBlockPhysics_blockProtected_shouldCancelEvent() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -303,7 +244,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val block = mock(Block::class.java)
         `when`(block.world).thenReturn(world)
@@ -319,13 +259,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onBlockRedstone_blockProtected_shouldResetCurrent() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -337,7 +270,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val block = mock(Block::class.java)
         `when`(block.world).thenReturn(world)
@@ -354,13 +286,6 @@ class OfflineProtectionListenerTest {
 
     @Test
     fun onStructureGrow_blocksProtected_shouldCancelGrowth() {
-        val config = mock(FileConfiguration::class.java)
-        `when`(plugin.config).thenReturn(config)
-        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
-        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
-        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
-
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
         `when`(world.name).thenReturn("world")
@@ -374,7 +299,6 @@ class OfflineProtectionListenerTest {
         val factionId = MfFactionId.generate()
         val claim = MfClaimedChunk(worldId, 0, 0, factionId)
         `when`(claimService.getClaim(chunk)).thenReturn(claim)
-        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
 
         val block = mock(Block::class.java)
         `when`(block.world).thenReturn(world)
@@ -402,7 +326,6 @@ class OfflineProtectionListenerTest {
         claimService = mock(MfClaimService::class.java)
         `when`(services.claimService).thenReturn(claimService)
 
-        factionService = mock(MfFactionService::class.java)
-        `when`(services.factionService).thenReturn(factionService)
+        `when`(services.factionService).thenReturn(mock())
     }
 }

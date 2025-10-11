@@ -1,8 +1,6 @@
 package com.dansplugins.factionsystem.listener
 
 import com.dansplugins.factionsystem.RemoFactions
-import com.dansplugins.factionsystem.claim.MfClaimedChunk
-import com.dansplugins.factionsystem.faction.MfFactionId
 import org.bukkit.Chunk
 import org.bukkit.Location
 import org.bukkit.block.Block
@@ -36,31 +34,27 @@ import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
 import org.bukkit.event.world.StructureGrowEvent
-import java.util.UUID
-import java.util.concurrent.ConcurrentHashMap
 import kotlin.math.floor
 
 class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
 
-    private val primedExplosionRadii: MutableMap<UUID, Float> = ConcurrentHashMap()
-
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockBreak(event: BlockBreakEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockDamage(event: BlockDamageEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockPlace(event: BlockPlaceEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
@@ -70,35 +64,35 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val blocks = mutableSetOf<Block>()
         blocks += event.block
         event.replacedBlockStates.mapTo(blocks) { it.block }
-        handleBlockChange(blocks, originChunk = null, isBlockDamage = false) {
+        handleBlockChange(blocks, originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockIgnite(event: BlockIgniteEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockBurn(event: BlockBurnEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockFade(event: BlockFadeEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockForm(event: BlockFormEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
@@ -106,49 +100,49 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockFertilize(event: BlockFertilizeEvent) {
         val blocks = event.blocks.map { it.block }
-        handleBlockChange(blocks, originChunk = null, isBlockDamage = false) {
+        handleBlockChange(blocks, originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockSpread(event: BlockSpreadEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockGrow(event: BlockGrowEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onLeavesDecay(event: LeavesDecayEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockFromTo(event: BlockFromToEvent) {
-        handleBlockChange(listOfNotNull(event.toBlock), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOfNotNull(event.toBlock), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onFluidLevelChange(event: FluidLevelChangeEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onCauldronLevelChange(event: CauldronLevelChangeEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
@@ -161,7 +155,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
             affectedBlocks += block
             affectedBlocks += block.getRelative(event.direction)
         }
-        handleBlockChange(affectedBlocks, originChunk = null, isBlockDamage = false) {
+        handleBlockChange(affectedBlocks, originChunk = null) {
             event.isCancelled = true
         }
     }
@@ -174,42 +168,42 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
             affectedBlocks += block
             affectedBlocks += block.getRelative(event.direction.oppositeFace)
         }
-        handleBlockChange(affectedBlocks, originChunk = null, isBlockDamage = false) {
+        handleBlockChange(affectedBlocks, originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockPhysics(event: BlockPhysicsEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockDropItem(event: BlockDropItemEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onSpongeAbsorb(event: SpongeAbsorbEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityChangeBlock(event: EntityChangeBlockEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
         }
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockRedstone(event: BlockRedstoneEvent) {
-        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+        handleBlockChange(listOf(event.block), originChunk = null) {
             event.newCurrent = event.oldCurrent
         }
     }
@@ -218,7 +212,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     fun onStructureGrow(event: StructureGrowEvent) {
         val blocks = event.blocks.map { it.block }
         val originChunk = event.location.chunk
-        handleBlockChange(blocks, originChunk, isBlockDamage = false) {
+        handleBlockChange(blocks, originChunk) {
             event.isCancelled = true
         }
     }
@@ -234,13 +228,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
             }
             return
         }
-        val radius = primedExplosionRadii.remove(entity.uniqueId)
-        val additionalChunks = if (location.world != null && radius != null) {
-            getChunksWithinRadius(location, radius)
-        } else {
-            emptySet()
-        }
-        handleExplosion(event.blockList(), location.chunk, additionalChunks) {
+        handleExplosion(event.blockList(), location.chunk, emptySet()) {
             event.blockList().clear()
             event.isCancelled = true
         }
@@ -252,13 +240,8 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val location = entity.location
         val originChunk = location.chunk
         val additionalChunks = getChunksWithinRadius(location, event.radius)
-        var cancelled = false
-        handleBlockChange(emptyList(), originChunk, additionalChunks, isBlockDamage = true) {
-            cancelled = true
+        handleBlockChange(emptyList(), originChunk, additionalChunks) {
             event.isCancelled = true
-        }
-        if (!cancelled) {
-            primedExplosionRadii[entity.uniqueId] = event.radius
         }
     }
 
@@ -276,7 +259,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         additionalChunks: Collection<Chunk>,
         cancel: () -> Unit
     ) {
-        handleBlockChange(blocks, originChunk, additionalChunks, isBlockDamage = true) {
+        handleBlockChange(blocks, originChunk, additionalChunks) {
             cancel()
         }
     }
@@ -285,19 +268,9 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         blocks: Collection<Block>,
         originChunk: Chunk?,
         additionalChunks: Collection<Chunk> = emptyList(),
-        isBlockDamage: Boolean,
         cancel: () -> Unit
     ) {
-        val settings = getSettings()
-        if (!settings.enabled) {
-            return
-        }
-        if (settings.onlyBlockDamage && !isBlockDamage) {
-            return
-        }
         val claimService = plugin.services.claimService
-        val allowWhenAnyMemberOnline = settings.allowWhenAnyMemberOnline
-        val factionsToProtect = mutableMapOf<MfFactionId, Boolean>()
 
         val chunksToEvaluate = mutableSetOf<Chunk>()
         blocks.mapTo(chunksToEvaluate, Block::getChunk)
@@ -305,11 +278,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         additionalChunks.mapTo(chunksToEvaluate) { it }
 
         val protectedDetected = chunksToEvaluate.any { chunk ->
-            if (settings.exemptWorlds.contains(chunk.world.name.lowercase())) {
-                return@any false
-            }
-            val claim = claimService.getClaim(chunk) ?: return@any false
-            shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
+            claimService.getClaim(chunk) != null
         }
 
         if (!protectedDetected) {
@@ -317,39 +286,6 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         }
 
         cancel()
-    }
-
-    private data class ProtectionSettings(
-        val enabled: Boolean,
-        val onlyBlockDamage: Boolean,
-        val allowWhenAnyMemberOnline: Boolean,
-        val exemptWorlds: Set<String>
-    )
-
-    private fun getSettings(): ProtectionSettings {
-        val config = plugin.config
-        return ProtectionSettings(
-            enabled = config.getBoolean("offlineBlastProtection.enabled"),
-            onlyBlockDamage = config.getBoolean("offlineBlastProtection.onlyBlockDamage", false),
-            allowWhenAnyMemberOnline = config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true),
-            exemptWorlds = config.getStringList("offlineBlastProtection.exemptWorlds")
-                .map(String::lowercase)
-                .toSet()
-        )
-    }
-
-    private fun shouldProtect(
-        claim: MfClaimedChunk,
-        allowWhenAnyMemberOnline: Boolean,
-        cache: MutableMap<MfFactionId, Boolean>
-    ): Boolean {
-        return cache.getOrPut(claim.factionId) {
-            if (!allowWhenAnyMemberOnline) {
-                return@getOrPut true
-            }
-            val factionService = plugin.services.factionService
-            !factionService.hasOnlineMember(claim.factionId)
-        }
     }
 
     private fun getChunksWithinRadius(location: Location, radius: Float): Set<Chunk> {
