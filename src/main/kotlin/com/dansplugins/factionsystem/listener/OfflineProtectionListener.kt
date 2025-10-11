@@ -11,23 +11,42 @@ import org.bukkit.event.EventPriority
 import org.bukkit.event.Listener
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.event.block.BlockBurnEvent
+import org.bukkit.event.block.BlockDamageEvent
+import org.bukkit.event.block.BlockDropItemEvent
 import org.bukkit.event.block.BlockExplodeEvent
 import org.bukkit.event.block.BlockFadeEvent
+import org.bukkit.event.block.BlockFertilizeEvent
 import org.bukkit.event.block.BlockFormEvent
 import org.bukkit.event.block.BlockFromToEvent
 import org.bukkit.event.block.BlockGrowEvent
+import org.bukkit.event.block.BlockIgniteEvent
 import org.bukkit.event.block.BlockMultiPlaceEvent
+import org.bukkit.event.block.BlockPhysicsEvent
 import org.bukkit.event.block.BlockPistonExtendEvent
 import org.bukkit.event.block.BlockPistonRetractEvent
 import org.bukkit.event.block.BlockPlaceEvent
+import org.bukkit.event.block.BlockRedstoneEvent
 import org.bukkit.event.block.BlockSpreadEvent
+import org.bukkit.event.block.CauldronLevelChangeEvent
+import org.bukkit.event.block.FluidLevelChangeEvent
+import org.bukkit.event.block.LeavesDecayEvent
+import org.bukkit.event.block.SpongeAbsorbEvent
 import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
+import org.bukkit.event.entity.ExplosionPrimeEvent
+import org.bukkit.event.world.StructureGrowEvent
 
 class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockBreak(event: BlockBreakEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockDamage(event: BlockDamageEvent) {
         handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
             event.isCancelled = true
         }
@@ -46,6 +65,13 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         blocks += event.block
         event.replacedBlockStates.mapTo(blocks) { it.block }
         handleBlockChange(blocks, originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockIgnite(event: BlockIgniteEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
             event.isCancelled = true
         }
     }
@@ -72,6 +98,14 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockFertilize(event: BlockFertilizeEvent) {
+        val blocks = event.blocks.map { it.block }
+        handleBlockChange(blocks, originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockSpread(event: BlockSpreadEvent) {
         handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
             event.isCancelled = true
@@ -86,8 +120,29 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onLeavesDecay(event: LeavesDecayEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onBlockFromTo(event: BlockFromToEvent) {
         handleBlockChange(listOfNotNull(event.toBlock), originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onFluidLevelChange(event: FluidLevelChangeEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onCauldronLevelChange(event: CauldronLevelChangeEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
             event.isCancelled = true
         }
     }
@@ -119,8 +174,45 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockPhysics(event: BlockPhysicsEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockDropItem(event: BlockDropItemEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onSpongeAbsorb(event: SpongeAbsorbEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityChangeBlock(event: EntityChangeBlockEvent) {
         handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = true) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onBlockRedstone(event: BlockRedstoneEvent) {
+        handleBlockChange(listOf(event.block), originChunk = null, isBlockDamage = false) {
+            event.newCurrent = event.oldCurrent
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onStructureGrow(event: StructureGrowEvent) {
+        val blocks = event.blocks.map { it.block }
+        val originChunk = event.location.chunk
+        handleBlockChange(blocks, originChunk, isBlockDamage = false) {
             event.isCancelled = true
         }
     }
@@ -130,6 +222,16 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val location = event.location
         handleExplosion(event.blockList(), location.world, location.chunk) {
             event.blockList().clear()
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onExplosionPrime(event: ExplosionPrimeEvent) {
+        val entity = event.entity
+        val location = entity.location
+        val originChunk = location.chunk
+        handleBlockChange(emptyList(), originChunk, isBlockDamage = true) {
             event.isCancelled = true
         }
     }
