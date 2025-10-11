@@ -11,6 +11,7 @@ import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.block.BlockState
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Entity
 import org.bukkit.event.block.BlockPhysicsEvent
 import org.bukkit.event.block.BlockPlaceEvent
@@ -18,16 +19,15 @@ import org.bukkit.event.block.BlockRedstoneEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
 import org.bukkit.event.world.StructureGrowEvent
-import org.bukkit.configuration.file.FileConfiguration
 import org.junit.jupiter.api.Assertions.assertTrue
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.mockito.Mockito.anyBoolean
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
 import org.mockito.Mockito.`when`
-import org.mockito.Mockito.anyBoolean
 import java.util.UUID
 
 @TestInstance(TestInstance.Lifecycle.PER_CLASS)
