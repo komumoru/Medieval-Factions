@@ -34,6 +34,7 @@ import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
 import org.bukkit.event.world.StructureGrowEvent
+import java.util.Locale
 import kotlin.math.floor
 
 class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
@@ -270,22 +271,54 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         additionalChunks: Collection<Chunk> = emptyList(),
         cancel: () -> Unit
     ) {
+        if (!isOfflineProtectionEnabled()) {
+            return
+        }
+
         val claimService = plugin.services.claimService
+        val factionService = plugin.services.factionService
 
         val chunksToEvaluate = mutableSetOf<Chunk>()
         blocks.mapTo(chunksToEvaluate, Block::getChunk)
         originChunk?.let(chunksToEvaluate::add)
         additionalChunks.mapTo(chunksToEvaluate) { it }
 
-        val protectedDetected = chunksToEvaluate.any { chunk ->
-            claimService.getClaim(chunk) != null
-        }
+        val exemptWorlds = getOfflineProtectionExemptWorlds()
+        val allowWhenAnyMemberOnline = plugin.config.getBoolean(
+            "offlineBlastProtection.allowWhenAnyMemberOnline",
+            true
+        )
 
-        if (!protectedDetected) {
+        val shouldProtect = chunksToEvaluate
+            .filterNot { chunk ->
+                val world = chunk.world ?: return@filterNot false
+                exemptWorlds.contains(world.name.lowercase(Locale.ROOT))
+            }
+            .mapNotNull(claimService::getClaim)
+            .any { claim ->
+                val hasOnlineMember = factionService.hasOnlineMember(claim.factionId)
+                if (hasOnlineMember) {
+                    !allowWhenAnyMemberOnline
+                } else {
+                    true
+                }
+            }
+
+        if (!shouldProtect) {
             return
         }
 
         cancel()
+    }
+
+    private fun isOfflineProtectionEnabled(): Boolean {
+        return plugin.config.getBoolean("offlineBlastProtection.enabled", true)
+    }
+
+    private fun getOfflineProtectionExemptWorlds(): Set<String> {
+        return plugin.config.getStringList("offlineBlastProtection.exemptWorlds")
+            .map { it.lowercase(Locale.ROOT) }
+            .toSet()
     }
 
     private fun getChunksWithinRadius(location: Location, radius: Float): Set<Chunk> {
