@@ -21,6 +21,7 @@ import org.bukkit.event.block.BlockPistonExtendEvent
 import org.bukkit.event.block.BlockPistonRetractEvent
 import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.block.BlockSpreadEvent
+import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.EntityChangeBlockEvent
 
@@ -211,7 +212,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         val config = plugin.config
         return ProtectionSettings(
             enabled = config.getBoolean("offlineBlastProtection.enabled"),
-            onlyBlockDamage = config.getBoolean("offlineBlastProtection.onlyBlockDamage", true),
+            onlyBlockDamage = config.getBoolean("offlineBlastProtection.onlyBlockDamage", false),
             allowWhenAnyMemberOnline = config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true),
             exemptWorlds = config.getStringList("offlineBlastProtection.exemptWorlds")
                 .map(String::lowercase)

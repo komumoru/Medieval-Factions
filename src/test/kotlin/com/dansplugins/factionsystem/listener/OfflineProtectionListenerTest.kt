@@ -43,7 +43,7 @@ class OfflineProtectionListenerTest {
         `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
         `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
         `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)).thenReturn(false)
+        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
 
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
@@ -79,7 +79,7 @@ class OfflineProtectionListenerTest {
         `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
         `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
         `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
-        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)).thenReturn(false)
+        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", false)).thenReturn(false)
 
         val world = mock(World::class.java)
         val worldId = UUID.randomUUID()
