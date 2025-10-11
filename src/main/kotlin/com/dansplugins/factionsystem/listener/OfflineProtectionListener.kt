@@ -17,7 +17,7 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onEntityExplode(event: EntityExplodeEvent) {
         val location = event.location
-        handleExplosion(event.blockList(), location?.world, location?.chunk) {
+        handleExplosion(event.blockList(), location.world, location.chunk) {
             event.blockList().clear()
             event.isCancelled = true
         }
@@ -50,30 +50,21 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         }
         val claimService = plugin.services.claimService
         val allowWhenAnyMemberOnline = config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)
-        val onlyBlockDamage = config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)
         val factionsToProtect = mutableMapOf<MfFactionId, Boolean>()
-        val protectedBlocks = if (blocks.isEmpty()) {
-            emptyList()
-        } else {
-            blocks.filter { block ->
-                val claim = claimService.getClaim(block.chunk) ?: return@filter false
-                shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
-            }
+        val protectedBlocksDetected = blocks.isNotEmpty() && blocks.any { block ->
+            val claim = claimService.getClaim(block.chunk) ?: return@any false
+            shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
         }
-        val originProtected = if (!onlyBlockDamage && originChunk != null) {
+        val originProtected = if (originChunk != null) {
             val claim = claimService.getClaim(originChunk)
             claim != null && shouldProtect(claim, allowWhenAnyMemberOnline, factionsToProtect)
         } else {
             false
         }
-        if (protectedBlocks.isEmpty() && !originProtected) {
+        if (!protectedBlocksDetected && !originProtected) {
             return
         }
-        if (onlyBlockDamage) {
-            blocks.removeAll(protectedBlocks.toSet())
-        } else {
-            cancel()
-        }
+        cancel()
     }
 
     private fun shouldProtect(
