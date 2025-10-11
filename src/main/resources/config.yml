@@ -35,10 +35,10 @@ wilderness:
     - ANVIL
     - SPAWNER
 offlineBlastProtection:
-  enabled: true # Offline blast protection is always enforced and cannot be disabled.
-  onlyBlockDamage: false # This setting is ignored; all block changes are prevented.
-  exemptWorlds: [] # This setting is ignored because protection is global.
-  allowWhenAnyMemberOnline: false # This setting is ignored; protection is always active.
+  enabled: true # Disable to completely turn off offline protection checks.
+  onlyBlockDamage: false # Reserved for future use.
+  exemptWorlds: [] # Lower-case world names that are exempt from offline protection.
+  allowWhenAnyMemberOnline: true # If true, online members allow interaction in their territory.
 territoryRestrictions:
   enabled: false
   treatAlliesAsMembers: false
