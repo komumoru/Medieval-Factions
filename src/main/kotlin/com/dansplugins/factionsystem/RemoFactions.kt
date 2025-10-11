@@ -333,11 +333,7 @@ class RemoFactions : JavaPlugin() {
             }
         }
 
-        if (config.getBoolean("offlineBlastProtection.enabled")) {
-            logger.info("Offline blast protection: enabled")
-        } else {
-            logger.info("Offline blast protection: disabled")
-        }
+        logger.info("Offline blast protection: permanently enabled")
         if (config.getBoolean("territoryRestrictions.enabled")) {
             logger.info("Territory block restrictions: enabled")
         } else {
