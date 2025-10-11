@@ -11,6 +11,7 @@ import org.bukkit.Location
 import org.bukkit.World
 import org.bukkit.block.Block
 import org.bukkit.configuration.file.FileConfiguration
+import org.bukkit.event.block.BlockPlaceEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
@@ -67,6 +68,40 @@ class OfflineProtectionListenerTest {
         `when`(event.location).thenReturn(location)
 
         uut.onEntityExplode(event)
+
+        verify(event).isCancelled = true
+    }
+
+    @Test
+    fun onBlockPlace_blockProtected_onlyBlockDamageFalse_shouldCancelPlacement() {
+        val config = mock(FileConfiguration::class.java)
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("offlineBlastProtection.enabled")).thenReturn(true)
+        `when`(config.getStringList("offlineBlastProtection.exemptWorlds")).thenReturn(emptyList())
+        `when`(config.getBoolean("offlineBlastProtection.allowWhenAnyMemberOnline", true)).thenReturn(true)
+        `when`(config.getBoolean("offlineBlastProtection.onlyBlockDamage", true)).thenReturn(false)
+
+        val world = mock(World::class.java)
+        val worldId = UUID.randomUUID()
+        `when`(world.name).thenReturn("world")
+        `when`(world.uid).thenReturn(worldId)
+
+        val chunk = mock(Chunk::class.java)
+        `when`(chunk.world).thenReturn(world)
+
+        val factionId = MfFactionId.generate()
+        val claim = MfClaimedChunk(worldId, 0, 0, factionId)
+        `when`(claimService.getClaim(chunk)).thenReturn(claim)
+        `when`(factionService.hasOnlineMember(factionId)).thenReturn(false)
+
+        val block = mock(Block::class.java)
+        `when`(block.world).thenReturn(world)
+        `when`(block.chunk).thenReturn(chunk)
+
+        val event = mock(BlockPlaceEvent::class.java)
+        `when`(event.block).thenReturn(block)
+
+        uut.onBlockPlace(event)
 
         verify(event).isCancelled = true
     }
