@@ -13,6 +13,7 @@ import com.dansplugins.factionsystem.command.faction.claim.MfFactionClaimCommand
 import com.dansplugins.factionsystem.command.faction.create.MfFactionCreateCommand
 import com.dansplugins.factionsystem.command.faction.declareindependence.MfFactionDeclareIndependenceCommand
 import com.dansplugins.factionsystem.command.faction.declarewar.MfFactionDeclareWarCommand
+import com.dansplugins.factionsystem.command.faction.debug.MfFactionDebugCommand
 import com.dansplugins.factionsystem.command.faction.denyapp.MfFactionDenyAppCommand
 import com.dansplugins.factionsystem.command.faction.dev.MfFactionDevCommand
 import com.dansplugins.factionsystem.command.faction.disband.MfFactionDisbandCommand
@@ -91,6 +92,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
     private val factionRelationshipCommand = MfFactionRelationshipCommand(plugin)
     private val factionAddMemberCommand = MfFactionAddMemberCommand(plugin)
     private val factionDevCommand = MfFactionDevCommand(plugin)
+    private val factionDebugCommand = MfFactionDebugCommand(plugin)
     private val factionApplyCommand = MfFactionApplyCommand(plugin)
     private val factionShowAppsCommand = MfShowAppsCommand(plugin)
     private val factionApproveAppCommand = MfFactionApproveAppCommand(plugin)
@@ -134,6 +136,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
     private val relationshipAliases = listOf("relationship", plugin.language["CmdFactionRelationship"])
     private val addMemberAliases = listOf("addmember", plugin.language["CmdFactionAddMember"])
     private val devAliases = if (plugin.config.getBoolean("dev.enableDevCommands")) listOf("dev") else emptyList()
+    private val debugAliases = listOf("debug", plugin.language["CmdFactionDebug"])
     private val applyAliases = listOf("apply", plugin.language["CmdFactionApply"])
     private val showAppsAliases = listOf("showapps", plugin.language["CmdFactionShowApps"])
     private val approveAppAliases = listOf("approveapp", plugin.language["CmdFactionApproveApp"])
@@ -177,6 +180,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
         relationshipAliases +
         addMemberAliases +
         devAliases +
+        debugAliases +
         applyAliases +
         showAppsAliases +
         approveAppAliases +
@@ -222,6 +226,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
             in relationshipAliases -> factionRelationshipCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in addMemberAliases -> factionAddMemberCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in devAliases -> factionDevCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
+            in debugAliases -> factionDebugCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in applyAliases -> factionApplyCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in showAppsAliases -> factionShowAppsCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in approveAppAliases -> factionApproveAppCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
@@ -284,6 +289,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
             in relationshipAliases -> factionRelationshipCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
             in addMemberAliases -> factionAddMemberCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
             in devAliases -> factionDevCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
+            in debugAliases -> factionDebugCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
             in applyAliases -> factionApplyCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
             in approveAppAliases -> factionApproveAppCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
             in denyAppAliases -> factionDenyAppCommand.onTabComplete(sender, command, label, args.drop(1).toTypedArray())
