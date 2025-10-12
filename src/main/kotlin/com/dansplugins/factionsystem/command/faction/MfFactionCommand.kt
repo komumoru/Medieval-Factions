@@ -11,9 +11,9 @@ import com.dansplugins.factionsystem.command.faction.bypass.MfFactionBypassComma
 import com.dansplugins.factionsystem.command.faction.chat.MfFactionChatCommand
 import com.dansplugins.factionsystem.command.faction.claim.MfFactionClaimCommand
 import com.dansplugins.factionsystem.command.faction.create.MfFactionCreateCommand
+import com.dansplugins.factionsystem.command.faction.debug.MfFactionDebugCommand
 import com.dansplugins.factionsystem.command.faction.declareindependence.MfFactionDeclareIndependenceCommand
 import com.dansplugins.factionsystem.command.faction.declarewar.MfFactionDeclareWarCommand
-import com.dansplugins.factionsystem.command.faction.debug.MfFactionDebugCommand
 import com.dansplugins.factionsystem.command.faction.denyapp.MfFactionDenyAppCommand
 import com.dansplugins.factionsystem.command.faction.dev.MfFactionDevCommand
 import com.dansplugins.factionsystem.command.faction.disband.MfFactionDisbandCommand
