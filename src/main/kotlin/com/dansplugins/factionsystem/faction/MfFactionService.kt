@@ -24,6 +24,7 @@ import dev.forkhandles.result4k.Result4k
 import dev.forkhandles.result4k.mapFailure
 import dev.forkhandles.result4k.onFailure
 import dev.forkhandles.result4k.resultFrom
+import java.util.UUID
 import java.util.concurrent.ConcurrentHashMap
 import java.util.concurrent.CopyOnWriteArrayList
 
@@ -71,7 +72,12 @@ class MfFactionService(private val plugin: RemoFactions, private val repository:
     fun hasOnlineMember(factionId: MfFactionId): Boolean {
         val faction = getFaction(factionId) ?: return false
         return faction.members.any { member ->
-            member.playerId.toBukkitPlayer().player?.isOnline == true
+            val uuid = try {
+                UUID.fromString(member.playerId.value)
+            } catch (_: IllegalArgumentException) {
+                return@any false
+            }
+            plugin.server.getPlayer(uuid)?.isOnline == true
         }
     }
 
