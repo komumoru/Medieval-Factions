@@ -6,6 +6,7 @@ import com.dansplugins.factionsystem.chat.MfChatService
 import com.dansplugins.factionsystem.claim.JooqMfClaimedChunkRepository
 import com.dansplugins.factionsystem.claim.MfClaimService
 import com.dansplugins.factionsystem.claim.MfClaimedChunkRepository
+import com.dansplugins.factionsystem.claim.UnclaimCooldownStore
 import com.dansplugins.factionsystem.command.accessors.MfAccessorsCommand
 import com.dansplugins.factionsystem.command.duel.MfDuelCommand
 import com.dansplugins.factionsystem.command.faction.MfFactionCommand
@@ -121,6 +122,8 @@ class RemoFactions : JavaPlugin() {
     lateinit var factionPermissions: MfFactionPermissions
     lateinit var services: Services
     lateinit var language: Language
+    lateinit var unclaimCooldownStore: UnclaimCooldownStore
+        private set
 
     override fun onEnable() {
         val migrator = MfLegacyDataMigrator(this)
@@ -142,6 +145,12 @@ class RemoFactions : JavaPlugin() {
         config.options().copyDefaults(true)
         config.set("version", description.version)
         saveConfig()
+
+        if (!dataFolder.exists()) {
+            dataFolder.mkdirs()
+        }
+
+        unclaimCooldownStore = UnclaimCooldownStore(this)
 
         language = Language(this, config.getString("language") ?: "en-US")
 
@@ -551,6 +560,13 @@ class RemoFactions : JavaPlugin() {
         server.pluginManager.getPlugin("Mailboxes") != null -> MailboxesNotificationService(this)
         server.pluginManager.getPlugin("rpk-notification-lib-bukkit") != null -> RpkNotificationService(this)
         else -> NoOpNotificationService()
+    }
+
+    override fun onDisable() {
+        if (this::unclaimCooldownStore.isInitialized) {
+            unclaimCooldownStore.save()
+        }
+        super.onDisable()
     }
 
     private fun setupRpkLockService() {

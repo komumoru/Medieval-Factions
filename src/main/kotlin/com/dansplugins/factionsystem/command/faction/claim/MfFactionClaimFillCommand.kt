@@ -34,6 +34,11 @@ class MfFactionClaimFillCommand(private val plugin: RemoFactions) : CommandExecu
             sender.sendMessage("$RED${plugin.language["CommandFactionClaimFillNotAPlayer"]}")
             return true
         }
+        val claimService = plugin.services.claimService
+        if (!claimService.isWorldClaimable(sender.world)) {
+            sender.sendMessage("$RED${plugin.language["CommandFactionClaimWorldNotAllowed"]}")
+            return true
+        }
         plugin.server.scheduler.runTaskAsynchronously(
             plugin,
             Runnable {
@@ -76,7 +81,6 @@ class MfFactionClaimFillCommand(private val plugin: RemoFactions) : CommandExecu
                             sender.sendMessage("$RED${plugin.language["CommandFactionClaimFillNotEnoughPower"]}")
                             return@saveChunks
                         }
-                        val claimService = plugin.services.claimService
                         val claims = chunks.associateWith(claimService::getClaim)
                         val relationshipService = plugin.services.factionRelationshipService
                         val unclaimedChunks = claims.filter { (_, claim) -> claim == null }.keys

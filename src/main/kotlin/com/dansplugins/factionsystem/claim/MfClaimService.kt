@@ -18,6 +18,7 @@ import net.md_5.bungee.api.ChatMessageType.ACTION_BAR
 import net.md_5.bungee.api.chat.TextComponent
 import org.bukkit.Chunk
 import org.bukkit.World
+import org.bukkit.World.Environment
 import java.util.*
 import java.util.concurrent.ConcurrentHashMap
 
@@ -42,6 +43,23 @@ class MfClaimService(private val plugin: RemoFactions, private val repository: M
     fun getClaim(world: World, x: Int, z: Int): MfClaimedChunk? = getClaim(world.uid, x, z)
     fun getClaim(chunk: Chunk): MfClaimedChunk? = getClaim(chunk.world, chunk.x, chunk.z)
     fun getClaim(chunkPosition: MfChunkPosition): MfClaimedChunk? = getClaim(chunkPosition.worldId, chunkPosition.x, chunkPosition.z)
+
+    fun isWorldClaimable(world: World?): Boolean {
+        return isEnvironmentClaimable(world?.environment)
+    }
+
+    fun isEnvironmentClaimable(environment: Environment?): Boolean {
+        val disallowed = plugin.config.getStringList("factions.claiming.disallowedWorldEnvironments")
+            .map { it.uppercase(Locale.ROOT) }
+            .toSet()
+        if (environment == null) {
+            return false
+        }
+        if (disallowed.isEmpty()) {
+            return true
+        }
+        return environment.name.uppercase(Locale.ROOT) !in disallowed
+    }
 
     @JvmName("getClaimsByFactionId")
     fun getClaims(factionId: MfFactionId): List<MfClaimedChunk> = claims.filter { it.factionId == factionId }
