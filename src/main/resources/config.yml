@@ -34,6 +34,16 @@ wilderness:
     - BEACON
     - ANVIL
     - SPAWNER
+heightRestrictions:
+  enabled: true
+  minimumY: 62
+  restrictedBlocks:
+  - TNT
+  - HOPPER
+  - BEACON
+  - ANVIL
+  - ENCHANTING_TABLE
+  message: '&cYou cannot place that block below Y {minY}.'
 offlineBlastProtection:
   enabled: true # Disable to completely turn off offline protection checks.
   onlyBlockDamage: false # Reserved for future use.
@@ -87,6 +97,11 @@ factions:
   vassalPowerContributionMultiplier: 0.75
   nonMembersCanInteractWithDoors: false
   maxClaimRadius: 3
+  claiming:
+    disallowedWorldEnvironments:
+    - NETHER
+    - THE_END
+  unclaimCooldownHours: 24
   limitLand: true
   contiguousClaims: false
   actionBarTerritoryIndicator: true

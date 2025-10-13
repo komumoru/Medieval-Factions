@@ -33,6 +33,7 @@ import org.bukkit.event.block.SpongeAbsorbEvent
 import org.bukkit.event.entity.EntityChangeBlockEvent
 import org.bukkit.event.entity.EntityExplodeEvent
 import org.bukkit.event.entity.ExplosionPrimeEvent
+import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.event.world.StructureGrowEvent
 import java.util.Locale
 import kotlin.math.floor
@@ -189,6 +190,14 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
     }
 
     @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
+    fun onPlayerInteract(event: PlayerInteractEvent) {
+        val block = event.clickedBlock ?: return
+        if (shouldProtect(listOf(block), originChunk = null)) {
+            event.isCancelled = true
+        }
+    }
+
+    @EventHandler(priority = EventPriority.HIGH, ignoreCancelled = true)
     fun onSpongeAbsorb(event: SpongeAbsorbEvent) {
         handleBlockChange(listOf(event.block), originChunk = null) {
             event.isCancelled = true
@@ -271,8 +280,18 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         additionalChunks: Collection<Chunk> = emptyList(),
         cancel: () -> Unit
     ) {
+        if (shouldProtect(blocks, originChunk, additionalChunks)) {
+            cancel()
+        }
+    }
+
+    private fun shouldProtect(
+        blocks: Collection<Block>,
+        originChunk: Chunk?,
+        additionalChunks: Collection<Chunk> = emptyList()
+    ): Boolean {
         if (!isOfflineProtectionEnabled()) {
-            return
+            return false
         }
 
         val claimService = plugin.services.claimService
@@ -283,16 +302,20 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
         originChunk?.let(chunksToEvaluate::add)
         additionalChunks.mapTo(chunksToEvaluate) { it }
 
+        if (chunksToEvaluate.isEmpty()) {
+            return false
+        }
+
         val exemptWorlds = getOfflineProtectionExemptWorlds()
         val allowWhenAnyMemberOnline = plugin.config.getBoolean(
             "offlineBlastProtection.allowWhenAnyMemberOnline",
             true
         )
 
-        val shouldProtect = chunksToEvaluate
+        return chunksToEvaluate
             .filterNot { chunk ->
-                val world = chunk.world ?: return@filterNot false
-                exemptWorlds.contains(world.name.lowercase(Locale.ROOT))
+                val worldName = chunk.world?.name ?: return@filterNot false
+                exemptWorlds.contains(worldName.lowercase(Locale.ROOT))
             }
             .mapNotNull(claimService::getClaim)
             .any { claim ->
@@ -303,12 +326,6 @@ class OfflineProtectionListener(private val plugin: RemoFactions) : Listener {
                     true
                 }
             }
-
-        if (!shouldProtect) {
-            return
-        }
-
-        cancel()
     }
 
     private fun isOfflineProtectionEnabled(): Boolean {

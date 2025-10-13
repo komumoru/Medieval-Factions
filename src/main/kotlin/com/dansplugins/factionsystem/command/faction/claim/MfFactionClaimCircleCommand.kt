@@ -66,6 +66,11 @@ class MfFactionClaimCircleCommand(private val plugin: RemoFactions) : CommandExe
                 plugin.server.scheduler.runTask(
                     plugin,
                     Runnable {
+                        val claimService = plugin.services.claimService
+                        if (!claimService.isWorldClaimable(sender.world)) {
+                            sender.sendMessage("${ChatColor.RED}${plugin.language["CommandFactionClaimWorldNotAllowed"]}")
+                            return@Runnable
+                        }
                         val chunks = if (radius == null) {
                             listOf(MfChunkPosition(sender.world.uid, senderChunkX, senderChunkZ))
                         } else {
@@ -80,7 +85,6 @@ class MfFactionClaimCircleCommand(private val plugin: RemoFactions) : CommandExe
                         plugin.server.scheduler.runTaskAsynchronously(
                             plugin,
                             Runnable saveChunks@{
-                                val claimService = plugin.services.claimService
                                 val claims = chunks.associateWith(claimService::getClaim)
                                 val relationshipService = plugin.services.factionRelationshipService
                                 val unclaimedChunks = claims.filter { (_, claim) -> claim == null }.keys
