@@ -110,11 +110,12 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
         if (!plugin.config.getBoolean("heightRestrictions.enabled", false)) {
             return false
         }
+        val blockPlaced = event.blockPlaced
         val minimumY = plugin.config.getInt("heightRestrictions.minimumY", 62)
-        if (event.block.y >= minimumY) {
+        if (blockPlaced.y >= minimumY) {
             return false
         }
-        if (!getHeightRestrictedBlocks().contains(event.block.type)) {
+        if (!getHeightRestrictedBlocks().contains(blockPlaced.type)) {
             return false
         }
         event.isCancelled = true
