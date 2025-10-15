@@ -34,7 +34,7 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
-            val preventAllBreaking = plugin.config.getBoolean("wilderness.break.prevent", false)
+            val preventAllBreaking = plugin.config.getBoolean("wilderness.break.prevent", true)
             val allowedBlocks = getWildernessAllowedBlocks()
             val blockIsAllowed = allowedBlocks.contains(event.block.type)
             val whitelistEnforced = preventAllBreaking || allowedBlocks.isNotEmpty()
