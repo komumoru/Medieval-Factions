@@ -73,6 +73,7 @@ class PlayerInteractListenerTest {
         language = mock(com.dansplugins.factionsystem.lang.Language::class.java)
         `when`(plugin.language).thenReturn(language)
         `when`(language["CannotInteractBlockInWilderness"]).thenReturn("Cannot interact in wilderness")
+        `when`(language["CannotUseSpawnEggInWilderness"]).thenReturn("Cannot use spawn eggs in wilderness")
 
         val logger = mock(Logger::class.java)
         `when`(plugin.logger).thenReturn(logger)
@@ -87,6 +88,21 @@ class PlayerInteractListenerTest {
         `when`(playerService.getPlayer(player)).thenReturn(mfPlayer)
 
         uut = PlayerInteractListener(plugin)
+    }
+
+    @Test
+    fun onPlayerInteract_WildernessSpawnEgg_ShouldCancelAndNotifyPlayer() {
+        val block = createBlock(Material.GRASS_BLOCK)
+        val item = mock(ItemStack::class.java)
+        `when`(item.type).thenReturn(Material.CREEPER_SPAWN_EGG)
+        val event = createEvent(block, item)
+        `when`(claimService.getClaim(block.chunk)).thenReturn(null)
+        `when`(config.getBoolean("wilderness.interaction.alert", true)).thenReturn(true)
+
+        uut.onPlayerInteract(event)
+
+        verify(event).isCancelled = true
+        verify(player).sendMessage("${ChatColor.RED}Cannot use spawn eggs in wilderness")
     }
 
     @Test

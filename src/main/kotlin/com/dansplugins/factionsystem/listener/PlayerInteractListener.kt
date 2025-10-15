@@ -162,6 +162,14 @@ class PlayerInteractListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(clickedBlock.chunk)
         if (claim == null) {
+            val item = event.item
+            if (item != null && item.type.name.endsWith("_SPAWN_EGG")) {
+                event.isCancelled = true
+                if (plugin.config.getBoolean("wilderness.interaction.alert", true)) {
+                    event.player.sendMessage("$RED${plugin.language["CannotUseSpawnEggInWilderness"]}")
+                }
+                return
+            }
             val preventAllInteractions = plugin.config.getBoolean("wilderness.interaction.prevent", false)
             val allowedBlocks = getWildernessInteractionAllowedBlocks()
             val allowedItems = getWildernessInteractionAllowedItems()
