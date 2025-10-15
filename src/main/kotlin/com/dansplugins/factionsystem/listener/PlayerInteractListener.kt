@@ -36,9 +36,15 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action.PHYSICAL
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot.HAND
+import org.bukkit.Material
+import java.util.Locale
 import java.util.logging.Level.SEVERE
+import java.util.logging.Level.WARNING
 
 class PlayerInteractListener(private val plugin: RemoFactions) : Listener {
+
+    private val invalidWildernessInteractionBlockEntries = mutableSetOf<String>()
+    private val invalidWildernessInteractionItemEntries = mutableSetOf<String>()
 
     @EventHandler
     fun onPlayerInteract(event: PlayerInteractEvent) {
@@ -156,7 +162,13 @@ class PlayerInteractListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(clickedBlock.chunk)
         if (claim == null) {
-            if (plugin.config.getBoolean("wilderness.interaction.prevent", false)) {
+            val preventAllInteractions = plugin.config.getBoolean("wilderness.interaction.prevent", false)
+            val allowedBlocks = getWildernessInteractionAllowedBlocks()
+            val allowedItems = getWildernessInteractionAllowedItems()
+            val blockIsAllowed = allowedBlocks.contains(clickedBlock.type)
+            val itemIsAllowed = event.item?.type?.let(allowedItems::contains) ?: false
+            val whitelistEnforced = preventAllInteractions || allowedBlocks.isNotEmpty() || allowedItems.isNotEmpty()
+            if (whitelistEnforced && !blockIsAllowed && !itemIsAllowed) {
                 event.isCancelled = true
                 if (plugin.config.getBoolean("wilderness.interaction.alert", true)) {
                     event.player.sendMessage("$RED${plugin.language["CannotInteractBlockInWilderness"]}")
@@ -635,5 +647,41 @@ class PlayerInteractListener(private val plugin: RemoFactions) : Listener {
                 }
             }
         )
+    }
+
+    private fun getWildernessInteractionAllowedBlocks(): Set<Material> =
+        getWildernessInteractionMaterials(
+            "wilderness.interaction.allowedBlocks",
+            invalidWildernessInteractionBlockEntries
+        )
+
+    private fun getWildernessInteractionAllowedItems(): Set<Material> =
+        getWildernessInteractionMaterials(
+            "wilderness.interaction.allowedItems",
+            invalidWildernessInteractionItemEntries
+        )
+
+    private fun getWildernessInteractionMaterials(
+        path: String,
+        invalidEntries: MutableSet<String>
+    ): Set<Material> {
+        val materials = mutableSetOf<Material>()
+        plugin.config.getStringList(path).forEach { rawEntry ->
+            val entry = rawEntry.trim()
+            if (entry.isEmpty()) {
+                return@forEach
+            }
+            val normalizedName = entry.substringAfter(':', entry).uppercase(Locale.ROOT)
+            val material = runCatching { Material.valueOf(normalizedName) }.getOrNull()
+            if (material != null) {
+                materials += material
+            } else if (invalidEntries.add(normalizedName)) {
+                plugin.logger.log(
+                    WARNING,
+                    "Unknown material '$entry' in $path; ignoring."
+                )
+            }
+        }
+        return materials
     }
 }

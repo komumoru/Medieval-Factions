@@ -18,14 +18,16 @@ wilderness:
   interaction:
     prevent: false
     alert: false
+    allowedBlocks: [] # Only blocks listed here can be interacted with in the wilderness when prevent is true (use Bukkit material names like 'CHEST' or 'minecraft:chest').
+    allowedItems: [] # Only items listed here can be used on wilderness blocks when prevent is true (use Bukkit material names like 'OAK_BOAT').
   place:
     prevent: true
     alert: true
-    allowedBlocks: []
+    allowedBlocks: [] # Only blocks listed here can be placed in the wilderness when prevent is true (use Bukkit material names like 'STONE' or 'minecraft:stone').
   break:
     prevent: true
     alert: true
-    allowedBlocks: []
+    allowedBlocks: [] # Only blocks listed here can be broken in the wilderness when prevent is true (use Bukkit material names like 'STONE' or 'minecraft:stone').
 heightRestrictions:
   enabled: true
   minimumY: 62

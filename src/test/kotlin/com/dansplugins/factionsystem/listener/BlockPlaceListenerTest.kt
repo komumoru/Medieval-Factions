@@ -16,6 +16,8 @@ import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockPlaceEvent
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
+import org.mockito.ArgumentMatchers.anyBoolean
+import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
@@ -41,6 +43,12 @@ class BlockPlaceListenerTest {
         mockLanguageSystem()
         config = mock(FileConfiguration::class.java)
         `when`(medievalFactions.config).thenReturn(config)
+        `when`(config.getBoolean(eq("wilderness.place.prevent"), anyBoolean())).thenAnswer { invocation ->
+            invocation.getArgument<Boolean>(1)
+        }
+        `when`(config.getBoolean(eq("wilderness.place.alert"), anyBoolean())).thenAnswer { invocation ->
+            invocation.getArgument<Boolean>(1)
+        }
         `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(emptyList())
         uut = BlockPlaceListener(medievalFactions)
     }
@@ -71,7 +79,7 @@ class BlockPlaceListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(true)
+        `when`(config.getBoolean("wilderness.place.prevent", true)).thenReturn(true)
         `when`(config.getBoolean("wilderness.place.alert", true)).thenReturn(true)
 
         // Act
@@ -89,7 +97,7 @@ class BlockPlaceListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(false)
+        `when`(config.getBoolean("wilderness.place.prevent", true)).thenReturn(false)
 
         // Act
         uut.onBlockPlace(event)
@@ -108,7 +116,7 @@ class BlockPlaceListenerTest {
 
         `when`(block.type).thenReturn(Material.TNT)
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(false)
+        `when`(config.getBoolean("wilderness.place.prevent", true)).thenReturn(false)
         `when`(config.getBoolean("wilderness.place.alert", true)).thenReturn(true)
         `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(listOf("DIRT"))
 
@@ -128,7 +136,7 @@ class BlockPlaceListenerTest {
 
         `when`(block.type).thenReturn(Material.DIRT)
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(true)
+        `when`(config.getBoolean("wilderness.place.prevent", true)).thenReturn(true)
         `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(listOf("DIRT"))
 
         // Act
