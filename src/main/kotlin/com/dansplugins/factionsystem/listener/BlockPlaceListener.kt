@@ -15,7 +15,7 @@ import java.util.logging.Level
 
 class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
 
-    private val invalidWildernessRestrictedBlockEntries = mutableSetOf<String>()
+    private val invalidWildernessAllowedBlockEntries = mutableSetOf<String>()
     private val invalidHeightRestrictedBlockEntries = mutableSetOf<String>()
 
     @EventHandler
@@ -37,9 +37,10 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
             val preventAllPlacement = plugin.config.getBoolean("wilderness.place.prevent", false)
-            val blockIsRestricted =
-                !preventAllPlacement && getWildernessRestrictedBlocks().contains(event.block.type)
-            if (preventAllPlacement || blockIsRestricted) {
+            val allowedBlocks = getWildernessAllowedBlocks()
+            val blockIsAllowed = allowedBlocks.contains(event.block.type)
+            val whitelistEnforced = preventAllPlacement || allowedBlocks.isNotEmpty()
+            if (whitelistEnforced && !blockIsAllowed) {
                 event.isCancelled = true
                 if (plugin.config.getBoolean("wilderness.place.alert", true)) {
                     event.player.sendMessage("$RED${plugin.language["CannotPlaceBlockInWilderness"]}")
@@ -82,8 +83,8 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
         }
     }
 
-    private fun getWildernessRestrictedBlocks(): Set<Material> {
-        val rawEntries: List<String>? = plugin.config.getStringList("wilderness.place.restrictedBlocks")
+    private fun getWildernessAllowedBlocks(): Set<Material> {
+        val rawEntries: List<String>? = plugin.config.getStringList("wilderness.place.allowedBlocks")
         val materials = mutableSetOf<Material>()
         rawEntries.orEmpty().forEach { rawEntry ->
             val entry = rawEntry.trim()
@@ -95,10 +96,10 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
             if (material != null) {
                 materials += material
             } else {
-                if (invalidWildernessRestrictedBlockEntries.add(normalizedName)) {
+                if (invalidWildernessAllowedBlockEntries.add(normalizedName)) {
                     plugin.logger.log(
                         Level.WARNING,
-                        "Unknown material '$entry' in wilderness.place.restrictedBlocks; ignoring."
+                        "Unknown material '$entry' in wilderness.place.allowedBlocks; ignoring."
                     )
                 }
             }

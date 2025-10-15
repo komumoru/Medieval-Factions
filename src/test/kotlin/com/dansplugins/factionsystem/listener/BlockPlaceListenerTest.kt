@@ -41,7 +41,7 @@ class BlockPlaceListenerTest {
         mockLanguageSystem()
         config = mock(FileConfiguration::class.java)
         `when`(medievalFactions.config).thenReturn(config)
-        `when`(config.getStringList("wilderness.place.restrictedBlocks")).thenReturn(emptyList())
+        `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(emptyList())
         uut = BlockPlaceListener(medievalFactions)
     }
 
@@ -100,7 +100,7 @@ class BlockPlaceListenerTest {
     }
 
     @Test
-    fun onBlockPlace_BlockInWilderness_BlockRestrictedInConfig_ShouldCancelAndInformPlayer() {
+    fun onBlockPlace_BlockInWilderness_BlockNotInWhitelist_ShouldCancelAndInformPlayer() {
         // Arrange
         val block = fixture.block
         val player = fixture.player
@@ -110,7 +110,7 @@ class BlockPlaceListenerTest {
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
         `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(false)
         `when`(config.getBoolean("wilderness.place.alert", true)).thenReturn(true)
-        `when`(config.getStringList("wilderness.place.restrictedBlocks")).thenReturn(listOf("TNT"))
+        `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(listOf("DIRT"))
 
         // Act
         uut.onBlockPlace(event)
@@ -118,6 +118,24 @@ class BlockPlaceListenerTest {
         // Assert
         verify(event).isCancelled = true
         verify(player).sendMessage("${ChatColor.RED}Cannot place block in wilderness")
+    }
+
+    @Test
+    fun onBlockPlace_BlockInWilderness_BlockInWhitelist_ShouldNotCancel() {
+        // Arrange
+        val block = fixture.block
+        val event = fixture.event
+
+        `when`(block.type).thenReturn(Material.DIRT)
+        `when`(claimService.getClaim(block.chunk)).thenReturn(null)
+        `when`(config.getBoolean("wilderness.place.prevent", false)).thenReturn(true)
+        `when`(config.getStringList("wilderness.place.allowedBlocks")).thenReturn(listOf("DIRT"))
+
+        // Act
+        uut.onBlockPlace(event)
+
+        // Assert
+        verify(event, never()).isCancelled = true
     }
 
     // Helper functions
