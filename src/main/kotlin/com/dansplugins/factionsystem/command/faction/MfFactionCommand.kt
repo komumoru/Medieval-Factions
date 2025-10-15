@@ -44,6 +44,7 @@ import com.dansplugins.factionsystem.command.faction.unclaim.MfFactionUnclaimCom
 import com.dansplugins.factionsystem.command.faction.unclaimall.MfFactionUnclaimAllCommand
 import com.dansplugins.factionsystem.command.faction.vassalize.MfFactionVassalizeCommand
 import com.dansplugins.factionsystem.command.faction.who.MfFactionWhoCommand
+import com.dansplugins.factionsystem.command.faction.whoami.MfFactionWhoAmICommand
 import org.bukkit.ChatColor.AQUA
 import org.bukkit.ChatColor.GRAY
 import org.bukkit.ChatColor.YELLOW
@@ -72,6 +73,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
     private val factionUnclaimAllCommand = MfFactionUnclaimAllCommand(plugin)
     private val factionPowerCommand = MfFactionPowerCommand(plugin)
     private val factionWhoCommand = MfFactionWhoCommand(plugin)
+    private val factionWhoAmICommand = MfFactionWhoAmICommand(plugin)
     private val factionDisbandCommand = MfFactionDisbandCommand(plugin)
     private val factionInvokeCommand = MfFactionInvokeCommand(plugin)
     private val factionLeaveCommand = MfFactionLeaveCommand(plugin)
@@ -116,6 +118,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
     private val unclaimAllAliases = listOf("unclaimall", plugin.language["CmdFactionUnclaimAll"])
     private val powerAliases = listOf("power", plugin.language["CmdFactionPower"])
     private val whoAliases = listOf("who", plugin.language["CmdFactionWho"])
+    private val whoAmIAliases = listOf("whoami", plugin.language["CmdFactionWhoAmI"])
     private val disbandAliases = listOf("disband", plugin.language["CmdFactionDisband"])
     private val invokeAliases = listOf("invoke", plugin.language["CmdFactionInvoke"])
     private val leaveAliases = listOf("leave", plugin.language["CmdFactionLeave"])
@@ -160,6 +163,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
         unclaimAllAliases +
         powerAliases +
         whoAliases +
+        whoAmIAliases +
         disbandAliases +
         invokeAliases +
         leaveAliases +
@@ -206,6 +210,7 @@ class MfFactionCommand(private val plugin: RemoFactions) : CommandExecutor, TabC
             in unclaimAllAliases -> factionUnclaimAllCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in powerAliases -> factionPowerCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in whoAliases -> factionWhoCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
+            in whoAmIAliases -> factionWhoAmICommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in disbandAliases -> factionDisbandCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in invokeAliases -> factionInvokeCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())
             in leaveAliases -> factionLeaveCommand.onCommand(sender, command, label, args.drop(1).toTypedArray())

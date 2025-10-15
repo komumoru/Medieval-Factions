@@ -41,6 +41,7 @@ commands:
       /f unclaimall - Unclaims all claimed land
       /f power - Views power stats
       /f who - Views a player's faction
+      /f whoami - Views your faction status
       /f disband - Disbands your faction
       /f invoke [ally] [enemy] - Invokes a faction into war
       /f leave - Leaves your faction
@@ -62,7 +63,7 @@ commands:
       /f relationship remove [faction1] [faction2] [relationship type] - Removes a relationship between two factions
       /f relationship view [faction1] [faction2] - Views the relationship between two factions
     aliases: [remofactions, mf, f, fraktion]
-    usage: /<command> [help|ally|breakalliance|declarewar|makepeace|create|invite|join|law|role|list|claim|unclaim|checkclaim|unclaimall|power|who|invoke|leave|vassalize|swearfealty|declareindependence|grantindependence|kick|map|sethome|home|flag|bypass|debug|chat|set|bonuspower|relationship]
+    usage: /<command> [help|ally|breakalliance|declarewar|makepeace|create|invite|join|law|role|list|claim|unclaim|checkclaim|unclaimall|power|who|whoami|invoke|leave|vassalize|swearfealty|declareindependence|grantindependence|kick|map|sethome|home|flag|bypass|debug|chat|set|bonuspower|relationship]
   lock:
     description: Enables or disables lock mode. To cancel lock mode, use /lock cancel.
     aliases: [verschlieBen, verschliessen, verrouiller]
@@ -221,6 +222,9 @@ permissions:
     default: true
   mf.who:
     description: Allows viewing which faction a player is part of
+    default: true
+  mf.whoami:
+    description: Allows viewing your faction status and territory information
     default: true
   mf.disband:
     description: Allows disbanding your faction
