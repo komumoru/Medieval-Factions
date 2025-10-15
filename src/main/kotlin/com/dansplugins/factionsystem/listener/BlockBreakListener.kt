@@ -18,7 +18,7 @@ import java.util.logging.Level.WARNING
 
 class BlockBreakListener(private val plugin: RemoFactions) : Listener {
 
-    private val invalidWildernessRestrictedBlockEntries = mutableSetOf<String>()
+    private val invalidWildernessAllowedBlockEntries = mutableSetOf<String>()
 
     @EventHandler
     fun onBlockBreak(event: BlockBreakEvent) {
@@ -35,9 +35,10 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
             val preventAllBreaking = plugin.config.getBoolean("wilderness.break.prevent", false)
-            val blockIsRestricted =
-                !preventAllBreaking && getWildernessRestrictedBlocks().contains(event.block.type)
-            if (preventAllBreaking || blockIsRestricted) {
+            val allowedBlocks = getWildernessAllowedBlocks()
+            val blockIsAllowed = allowedBlocks.contains(event.block.type)
+            val whitelistEnforced = preventAllBreaking || allowedBlocks.isNotEmpty()
+            if (whitelistEnforced && !blockIsAllowed) {
                 event.isCancelled = true
                 if (plugin.config.getBoolean("wilderness.break.alert", true)) {
                     event.player.sendMessage("$RED${plugin.language["CannotBreakBlockInWilderness"]}")
@@ -98,8 +99,8 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
         }
     }
 
-    private fun getWildernessRestrictedBlocks(): Set<Material> {
-        val rawEntries = plugin.config.getStringList("wilderness.break.restrictedBlocks")
+    private fun getWildernessAllowedBlocks(): Set<Material> {
+        val rawEntries: List<String>? = plugin.config.getStringList("wilderness.break.allowedBlocks")
         val materials = mutableSetOf<Material>()
         rawEntries.orEmpty().forEach { rawEntry ->
             val entry = rawEntry.trim()
@@ -110,10 +111,10 @@ class BlockBreakListener(private val plugin: RemoFactions) : Listener {
             val material = runCatching { Material.valueOf(normalizedName) }.getOrNull()
             if (material != null) {
                 materials += material
-            } else if (invalidWildernessRestrictedBlockEntries.add(normalizedName)) {
+            } else if (invalidWildernessAllowedBlockEntries.add(normalizedName)) {
                 plugin.logger.log(
                     WARNING,
-                    "Unknown material '$entry' in wilderness.break.restrictedBlocks; ignoring."
+                    "Unknown material '$entry' in wilderness.break.allowedBlocks; ignoring."
                 )
             }
         }

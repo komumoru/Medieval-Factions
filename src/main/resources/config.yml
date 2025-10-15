@@ -19,21 +19,13 @@ wilderness:
     prevent: false
     alert: false
   place:
-    prevent: false
+    prevent: true
     alert: true
-    restrictedBlocks:
-    - TNT
-    - HOPPER
-    - BEACON
-    - ANVIL
-    - ENCHANTING_TABLE
+    allowedBlocks: []
   break:
-    prevent: false
+    prevent: true
     alert: true
-    restrictedBlocks:
-    - BEACON
-    - ANVIL
-    - SPAWNER
+    allowedBlocks: []
 heightRestrictions:
   enabled: true
   minimumY: 62

@@ -12,6 +12,7 @@ import com.dansplugins.factionsystem.locks.MfLockService
 import com.dansplugins.factionsystem.player.MfPlayerService
 import com.dansplugins.factionsystem.service.Services
 import org.bukkit.ChatColor
+import org.bukkit.Material
 import org.bukkit.Server
 import org.bukkit.World
 import org.bukkit.block.Block
@@ -79,6 +80,7 @@ class BlockBreakListenerTest {
         `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
         `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(true)
         `when`(plugin.config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
+        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
 
         // Act
         uut.onBlockBreak(event)
@@ -97,6 +99,7 @@ class BlockBreakListenerTest {
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
         `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
         `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(false)
+        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
 
         // Act
         uut.onBlockBreak(event)
@@ -104,6 +107,45 @@ class BlockBreakListenerTest {
         // Assert
         verify(event, never()).isCancelled = true
         verify(event, never()).isCancelled = false
+    }
+
+    @Test
+    fun onBlockBreak_BlockInWilderness_BlockNotAllowListed_ShouldCancelAndInformPlayer() {
+        // Arrange
+        val block = fixture.block
+        val player = fixture.player
+        val event = fixture.event
+
+        `when`(claimService.getClaim(block.chunk)).thenReturn(null)
+        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
+        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(false)
+        `when`(plugin.config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
+        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("DIRT"))
+
+        // Act
+        uut.onBlockBreak(event)
+
+        // Assert
+        verify(event).isCancelled = true
+        verify(player).sendMessage("${ChatColor.RED}Cannot break block in wilderness")
+    }
+
+    @Test
+    fun onBlockBreak_BlockInWilderness_BlockAllowListed_ShouldNotCancel() {
+        // Arrange
+        val block = fixture.block
+        val event = fixture.event
+
+        `when`(claimService.getClaim(block.chunk)).thenReturn(null)
+        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
+        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(true)
+        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("STONE"))
+
+        // Act
+        uut.onBlockBreak(event)
+
+        // Assert
+        verify(event, never()).isCancelled = true
     }
 
     @Test
@@ -168,6 +210,7 @@ class BlockBreakListenerTest {
     private fun createFixture(): BlockBreakListenerTestFixture {
         val world = testUtils.createMockWorld()
         val block = testUtils.createMockBlock(world)
+        `when`(block.type).thenReturn(Material.STONE)
         val player = mock(Player::class.java)
         val event = testUtils.createBlockBreakEvent(block, player)
         return BlockBreakListenerTestFixture(world, block, player, event)
