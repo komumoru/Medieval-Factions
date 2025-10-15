@@ -16,12 +16,15 @@ import org.bukkit.Material
 import org.bukkit.Server
 import org.bukkit.World
 import org.bukkit.block.Block
+import org.bukkit.configuration.file.FileConfiguration
 import org.bukkit.entity.Player
 import org.bukkit.event.block.BlockBreakEvent
 import org.bukkit.scheduler.BukkitScheduler
 import org.junit.jupiter.api.BeforeEach
 import org.junit.jupiter.api.Test
 import org.junit.jupiter.api.TestInstance
+import org.mockito.ArgumentMatchers.anyBoolean
+import org.mockito.ArgumentMatchers.eq
 import org.mockito.Mockito.mock
 import org.mockito.Mockito.never
 import org.mockito.Mockito.verify
@@ -77,10 +80,11 @@ class BlockBreakListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
-        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(true)
-        `when`(plugin.config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
-        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
+        val config = mockConfig()
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("wilderness.break.prevent", true)).thenReturn(true)
+        `when`(config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
+        `when`(config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
 
         // Act
         uut.onBlockBreak(event)
@@ -97,9 +101,10 @@ class BlockBreakListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
-        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(false)
-        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
+        val config = mockConfig()
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("wilderness.break.prevent", true)).thenReturn(false)
+        `when`(config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf())
 
         // Act
         uut.onBlockBreak(event)
@@ -117,10 +122,11 @@ class BlockBreakListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
-        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(false)
-        `when`(plugin.config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
-        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("DIRT"))
+        val config = mockConfig()
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("wilderness.break.prevent", true)).thenReturn(false)
+        `when`(config.getBoolean("wilderness.break.alert", true)).thenReturn(true)
+        `when`(config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("DIRT"))
 
         // Act
         uut.onBlockBreak(event)
@@ -137,9 +143,10 @@ class BlockBreakListenerTest {
         val event = fixture.event
 
         `when`(claimService.getClaim(block.chunk)).thenReturn(null)
-        `when`(plugin.config).thenReturn(mock(org.bukkit.configuration.file.FileConfiguration::class.java))
-        `when`(plugin.config.getBoolean("wilderness.break.prevent", false)).thenReturn(true)
-        `when`(plugin.config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("STONE"))
+        val config = mockConfig()
+        `when`(plugin.config).thenReturn(config)
+        `when`(config.getBoolean("wilderness.break.prevent", true)).thenReturn(true)
+        `when`(config.getStringList("wilderness.break.allowedBlocks")).thenReturn(mutableListOf("STONE"))
 
         // Act
         uut.onBlockBreak(event)
@@ -206,6 +213,17 @@ class BlockBreakListenerTest {
     }
 
     // Helper functions
+
+    private fun mockConfig(): FileConfiguration {
+        val config = mock(FileConfiguration::class.java)
+        `when`(config.getBoolean(eq("wilderness.break.prevent"), anyBoolean())).thenAnswer { invocation ->
+            invocation.getArgument<Boolean>(1)
+        }
+        `when`(config.getBoolean(eq("wilderness.break.alert"), anyBoolean())).thenAnswer { invocation ->
+            invocation.getArgument<Boolean>(1)
+        }
+        return config
+    }
 
     private fun createFixture(): BlockBreakListenerTestFixture {
         val world = testUtils.createMockWorld()

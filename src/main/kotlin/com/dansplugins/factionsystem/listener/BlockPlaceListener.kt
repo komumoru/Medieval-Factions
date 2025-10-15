@@ -36,7 +36,7 @@ class BlockPlaceListener(private val plugin: RemoFactions) : Listener {
         val claimService = plugin.services.claimService
         val claim = claimService.getClaim(event.block.chunk)
         if (claim == null) {
-            val preventAllPlacement = plugin.config.getBoolean("wilderness.place.prevent", false)
+            val preventAllPlacement = plugin.config.getBoolean("wilderness.place.prevent", true)
             val allowedBlocks = getWildernessAllowedBlocks()
             val blockIsAllowed = allowedBlocks.contains(event.block.type)
             val whitelistEnforced = preventAllPlacement || allowedBlocks.isNotEmpty()
