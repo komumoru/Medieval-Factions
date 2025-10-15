@@ -23,11 +23,11 @@ wilderness:
   place:
     prevent: true
     alert: true
-    allowedBlocks: [] # Only blocks listed here can be placed in the wilderness when prevent is true (use Bukkit material names like 'STONE' or 'minecraft:stone').
+    allowedBlocks: [] # Only blocks listed here can be placed in the wilderness when prevent is true.
   break:
     prevent: true
     alert: true
-    allowedBlocks: [] # Only blocks listed here can be broken in the wilderness when prevent is true (use Bukkit material names like 'STONE' or 'minecraft:stone').
+    allowedBlocks: [] # Only blocks listed here can be broken in the wilderness when prevent is true.
 heightRestrictions:
   enabled: true
   minimumY: 62
