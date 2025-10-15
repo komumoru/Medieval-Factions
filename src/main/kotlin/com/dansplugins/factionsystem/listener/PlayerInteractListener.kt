@@ -21,6 +21,7 @@ import com.dansplugins.factionsystem.player.MfPlayerId
 import dev.forkhandles.result4k.onFailure
 import org.bukkit.ChatColor.GREEN
 import org.bukkit.ChatColor.RED
+import org.bukkit.Material
 import org.bukkit.block.Block
 import org.bukkit.block.BlockFace.DOWN
 import org.bukkit.block.BlockFace.UP
@@ -36,7 +37,6 @@ import org.bukkit.event.Listener
 import org.bukkit.event.block.Action.PHYSICAL
 import org.bukkit.event.player.PlayerInteractEvent
 import org.bukkit.inventory.EquipmentSlot.HAND
-import org.bukkit.Material
 import java.util.Locale
 import java.util.logging.Level.SEVERE
 import java.util.logging.Level.WARNING
